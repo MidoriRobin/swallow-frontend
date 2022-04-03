@@ -97,9 +97,10 @@
 
     /* Completeness */
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
-    "skipLibCheck": true /* Skip type checking all .d.ts files. */
-  },
+    "skipLibCheck": true /* Skip type checking all .d.ts files. */,
+    "typeRoots": ["./src/@types", "./node_modules/@types"]
+  }
   //! Added to allow for svgs but it doesnt work
   // It does prevent line 5 in src/index.tsx from erroring out
-  "include": ["src/utils/custom.d.ts"]
+  // "include": ["src/utils/custom.d.ts"]
 }
