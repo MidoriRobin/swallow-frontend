@@ -36,10 +36,8 @@ function App(): JSX.Element {
   return (
     <>
       <UserContext.Provider value={contextValue}>
-        <Navbar isLoggedIn={user.loggedIn}>
-          <MainRouter />
-        </Navbar>
-        {/* <div>Test</div> */}
+        <Navbar isLoggedIn={user.loggedIn} />
+        <MainRouter />
       </UserContext.Provider>
     </>
   );
