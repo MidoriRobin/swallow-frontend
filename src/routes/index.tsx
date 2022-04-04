@@ -11,6 +11,8 @@ import Tasks from './Tasks';
 
 const AppCont = styled.div`
   /* Layout */
+  display: flex;
+  justify-content: center;
 
   /* Presentation */
 `;
