@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import * as React from 'react';
+import Slider from '../components/slider/';
 
 const breakpoints = [425, 768, 1024, 1440];
 
@@ -49,13 +50,28 @@ const InfoWrap = styled.div`
     border: green solid 1.5px;
     margin: 3rem 0;
   }
+
+  @media (min-width: ${breakpoints[2]}px) {
+    width: 80%;
+    flex-direction: row wrap;
+    justify-content: center;
+  }
 `;
 
 function Home(): JSX.Element {
+  const sliderItems = [
+    { id: 'thing1', renderItem: <div>Item 1</div> },
+    { id: 'thing2', renderItem: <div>Item 2</div> },
+    { id: 'thing3', renderItem: <div>Item 3</div> },
+    { id: 'thing4', renderItem: <div>Item 4</div> },
+  ];
+
   return (
     <HomeWrap className="home-wrapper">
-      <CaroWrap className="carosel-wrapper">Carosel</CaroWrap>
-      <InfoWrap>
+      <CaroWrap className="carosel-wrapper">
+        <Slider items={sliderItems} />
+      </CaroWrap>
+      <InfoWrap className="info-wrapper">
         <ul className="info-items">
           <li>Item 1</li>
           <li>Item 2</li>
