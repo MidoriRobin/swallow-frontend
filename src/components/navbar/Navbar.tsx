@@ -13,19 +13,20 @@ import user from '../../assets/icons/icons8-user-24.png';
 import hamburger from '../../assets/icons/icons8-hamburger-menu-16.png';
 import { useSpring, animated as a } from '@react-spring/web';
 import useMediaQuery from '../../hooks/useMediaQuery';
+import { breakpoints } from '../../utils/helper';
 
 Navbar.propTypes = {
   isLoggedIn: PropTypes.bool,
 };
 
-const breakpoints = [425, 768, 1024, 1440];
-
 const NavWrap = styled.div`
   display: flex;
-  background-color: var(--primary-color-light-200);
   height: 2rem;
   justify-content: space-between;
   padding: 0 1rem;
+  z-index: 1;
+
+  background-color: var(--primary-color-light-200);
 
   @media (min-width: ${breakpoints[2]}px) {
     padding: 0 2rem;
@@ -52,6 +53,7 @@ const NavMain = styled(a.nav)`
   width: 30rem; */
   height: 0;
   width: 0;
+  z-index: inherit;
 
   /* Presentation */
   overflow: hidden;
@@ -102,7 +104,7 @@ const MenuBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1;
+  z-index: 3;
 
   /* Presentation */
   background-color: rgba(255, 0, 0, 0);
@@ -127,7 +129,7 @@ function Navbar({
 }) {
   // TODO: set to true when isDesktop
   const [dropdown, setDropdown] = useState(false);
-  const isDesktop = useMediaQuery('(min-width: 1024px)');
+  const isDesktop = useMediaQuery(`(min-width: ${breakpoints[2]}px)`);
 
   const dropdownProps = useSpring({
     width: dropdown ? 0 : '30rem',
@@ -145,6 +147,7 @@ function Navbar({
         <h1>Swallow</h1>
       </NavIcon>
       <MenuBtn
+        type="button"
         className="main-menu-btn"
         onClick={() => setDropdown((prevVal) => !prevVal)}
       >

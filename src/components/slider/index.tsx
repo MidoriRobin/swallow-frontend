@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
 import * as React from 'react';
 import { useSpringCarousel } from 'react-spring-carousel';
+import useMediaQuery from '../../hooks/useMediaQuery';
+import { breakpoints } from '../../utils/helper';
 
 const SlideCont = styled.div`
   /* Layout */
@@ -14,20 +16,26 @@ const CaroselArea = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: red;
+  /* background-color: red; */
   color: white;
   height: inherit;
+
+  @media (min-width: ${breakpoints[2]}px) {
+    height: 28rem;
+  }
 `;
 
-const SlideBtn = styled.button``;
+const SlideBtn = styled.button`
+  background: var(--secondary-color-light-200);
+  border: none;
+  margin: 0 1rem;
+`;
 
 const BtnArea = styled.div`
   display: flex;
-  z-index: 3;
-  position: absolute;
-  justify-content: space-between;
-  width: -webkit-fill-available;
-  top: 14rem;
+  justify-content: center;
+  align-items: center;
+  margin: 0.5rem 0;
 `;
 
 export interface ISliderProps {
@@ -43,6 +51,8 @@ export default function Slider({
   const { carouselFragment, slideToPrevItem, slideToNextItem } =
     useSpringCarousel({ items });
 
+  const isDesktop = useMediaQuery(`(min-width: ${breakpoints[2]}px)`);
+
   //TODO: Create a function that starts automatically scrolling after no interaction from the user
   function autoScroll(): void {
     let itemCounter = 0;
@@ -55,14 +65,16 @@ export default function Slider({
   return (
     <SlideCont className="slider-container">
       <CaroselArea className="carosel-area">{carouselFragment}</CaroselArea>{' '}
-      {/* <BtnArea className="btn-layer">
-        <SlideBtn type="button" onClick={slideToPrevItem}>
-          Prev Item
-        </SlideBtn>
-        <SlideBtn type="button" onClick={slideToNextItem}>
-          Next Item
-        </SlideBtn>
-      </BtnArea> */}
+      {isDesktop && (
+        <BtnArea className="btn-layer">
+          <SlideBtn type="button" onClick={slideToPrevItem}>
+            <img src="https://img.icons8.com/small/16/000000/back.png" />
+          </SlideBtn>
+          <SlideBtn type="button" onClick={slideToNextItem}>
+            <img src="https://img.icons8.com/small/16/000000/forward.png" />
+          </SlideBtn>
+        </BtnArea>
+      )}
     </SlideCont>
   );
 }

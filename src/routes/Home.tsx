@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import * as React from 'react';
+import Card from '../components/card/Card';
 import Slider from '../components/slider/';
-
-const breakpoints = [425, 768, 1024, 1440];
+import { breakpoints } from '../utils/helper';
 
 const HomeWrap = styled.div`
   /* Layout */
@@ -23,9 +23,13 @@ const CaroWrap = styled.div`
   /* Layout */
   width: 100%;
   height: 20rem;
-  margin: 2rem 0;
+  margin: 1rem 0;
   /* Presentation */
-  border: solid black 2px;
+  /* border: solid black 2px; */
+
+  @media (min-width: ${breakpoints[2]}px) {
+    height: 30rem;
+  }
 `;
 
 const InfoWrap = styled.div`
@@ -36,7 +40,7 @@ const InfoWrap = styled.div`
   justify-content: center;
 
   /* Presentation */
-  border: solid red 2px;
+  /* border: solid red 2px; */
 
   ul {
     width: inherit;
@@ -46,8 +50,12 @@ const InfoWrap = styled.div`
   }
 
   li {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     height: max-content;
-    border: green solid 1.5px;
+    /* border: green solid 1.5px; */
     margin: 3rem 0;
   }
 
@@ -58,12 +66,36 @@ const InfoWrap = styled.div`
   }
 `;
 
+const Image = styled.div<{ background?: string }>`
+  width: 100%;
+  height: 100%;
+  background-image: ${({ background }) => background};
+  background-size: cover;
+  background-position: center center;
+`;
+
 function Home(): JSX.Element {
   const sliderItems = [
-    { id: 'thing1', renderItem: <div>Item 1</div> },
-    { id: 'thing2', renderItem: <div>Item 2</div> },
-    { id: 'thing3', renderItem: <div>Item 3</div> },
-    { id: 'thing4', renderItem: <div>Item 4</div> },
+    {
+      id: 'thing1',
+      renderItem: <Image background="url(https://picsum.photos/id/124/500)" />,
+    },
+    {
+      id: 'thing2',
+      renderItem: <Image background="url(https://picsum.photos/id/123/500)" />,
+    },
+    {
+      id: 'thing3',
+      renderItem: <Image background="url(https://picsum.photos/id/125/500)" />,
+    },
+    {
+      id: 'thing4',
+      renderItem: <Image background="url(https://picsum.photos/id/126/500)" />,
+    },
+    {
+      id: 'thing5',
+      renderItem: <Image />,
+    },
   ];
 
   return (
@@ -73,11 +105,23 @@ function Home(): JSX.Element {
       </CaroWrap>
       <InfoWrap className="info-wrapper">
         <ul className="info-items">
-          <li>Item 1</li>
-          <li>Item 2</li>
-          <li>Item 3</li>
+          <li>
+            <Card height="15rem">Card 1</Card> <span />
+            <p>Minimalist</p>
+          </li>
+          <li>
+            <Card height="15rem">Card 2</Card>
+            <span />
+            <p>Intuitive</p>
+          </li>
+          <li>
+            <Card height="15rem">Card 3</Card>
+            <span />
+            <p>Simple</p>
+          </li>
         </ul>
       </InfoWrap>
+      {/* TODO: Add footer */}
     </HomeWrap>
   );
 }
