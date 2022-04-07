@@ -5,9 +5,74 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--primary-color-light-500);
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/*Thanks to https://colordesigner.io/  in help setting up the color palattes */
+:root {
+  --primary-color-light-100: #fffdfd;
+  --primary-color-light-200: #fffafb;
+  --primary-color-light-300: #fef8f8;
+  --primary-color-light-400: #fef6f6;
+  --primary-color-light-500: #fef4f4;
+  --primary-color-light-600: #fef1f2;
+  --primary-color-light-700: #feeff0;
+  --primary-color-light-800: #fdeded;
+  --primary-color-light-900: #fdeaeb;
+  --primary-color-dark-100: #f9bbbe;
+  --primary-color-dark-200: #f58f94;
+  --primary-color-dark-300: #f16269;
+  --primary-color-dark-400: #ed363e;
+  --primary-color-dark-500: #df131d;
+  --primary-color-dark-600: #b21017;
+  --primary-color-dark-700: #860c11;
+  --primary-color-dark-800: #59080c;
+  --primary-color-dark-900: #2d0406;
+
+  --secondary-color-light-100: #d8e7fb
+  --secondary-color-light-200: #b1cff6;
+  --secondary-color-light-300: #8bb6f2;
+  --secondary-color-light-400: #649eed;
+  --secondary-color-light-500: #3d86e9;
+  --secondary-color-light-600: #1a6ee0;
+  --secondary-color-light-700: #155bb9;
+  --secondary-color-light-800: #114893;
+  --secondary-color-light-900: #0c356c;
+  --secondary-color-dark-100: #071f3e
+  --secondary-color-dark-200: #061b37;
+  --secondary-color-dark-300: #061830;
+  --secondary-color-dark-400: #051429;
+  --secondary-color-dark-500: #041123;
+  --secondary-color-dark-600: #030e1c;
+  --secondary-color-dark-700: #020a15;
+  --secondary-color-dark-800: #02070e;
+  --secondary-color-dark-900: #010307;
+
+  --tertiary-color-light-100: #fcf0ed;
+  --tertiary-color-light-200: #f8e1da;
+  --tertiary-color-light-300: #f5d3c8;
+  --tertiary-color-light-400: #f2c4b6;
+  --tertiary-color-light-500: #efb5a3;
+  --tertiary-color-light-600: #eba691;
+  --tertiary-color-light-700: #e8977f;
+  --tertiary-color-light-800: #e5896d;
+  --tertiary-color-light-900: #e17a5a;
+  --tertiary-color-dark-100: #da572f;
+  --tertiary-color-dark-200: #c74a24;
+  --tertiary-color-dark-300: #ae411f;
+  --tertiary-color-dark-400: #95381b;
+  --tertiary-color-dark-500: #7d2e16;
+  --tertiary-color-dark-600: #642512;
+  --tertiary-color-dark-700: #4b1c0d;
+  --tertiary-color-dark-800: #321309;
+  --tertiary-color-dark-900: #190904;
+
+  --primary-color: #FDE8E9;
+  --secondary-color: #082245;
+  --tertiary-color: #DE6B48;
 }

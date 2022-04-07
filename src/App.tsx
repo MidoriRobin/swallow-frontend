@@ -1,13 +1,9 @@
 import React, { useDebugValue } from 'react';
 // import logo from './logo.svg';
 import './App.css';
-import { Routes, Route } from 'react-router-dom';
-import { BrowserRouter } from 'react-router-dom';
-import Home from './routes/Home';
-import Login from './routes/Login';
-import Navbar from './components/navbar/index';
+import Navbar from './components/navbar/Navbar';
 import MainRouter from './routes';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { UserContext } from './utils/context';
 
 interface IUser {
@@ -40,10 +36,8 @@ function App(): JSX.Element {
   return (
     <>
       <UserContext.Provider value={contextValue}>
-        <Navbar isLoggedIn={user.loggedIn}>
-          <MainRouter />
-        </Navbar>
-        {/* <div>Test</div> */}
+        <Navbar isLoggedIn={user.loggedIn} />
+        <MainRouter />
       </UserContext.Provider>
     </>
   );
