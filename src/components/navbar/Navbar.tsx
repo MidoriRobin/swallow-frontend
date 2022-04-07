@@ -146,37 +146,37 @@ function Navbar({
     <NavMain className="nav-menu" style={styles}>
       {!isLoggedIn ? (
         <NavButtons className="nav-buttons">
-          <a href="/">
+          <Link to="/">
             <img src={home} alt="Home Icon" />
             Home
-          </a>{' '}
-          <a href="/">
+          </Link>{' '}
+          <Link to="about">
             <img src={about} alt="About Icon" /> About
-          </a>{' '}
-          <a href="/">
+          </Link>{' '}
+          <Link to="login">
             <img src={login} alt="Login Icon" /> Login
-          </a>{' '}
-          <a href="/">
+          </Link>{' '}
+          <Link to="signup">
             <img src={signup} alt="Signup Icon" /> Signup
-          </a>
+          </Link>
         </NavButtons>
       ) : (
         <NavButtons className="nav-buttons">
-          <a href="/">
+          <Link to="/">
             <img src={home} alt="Home Icon" /> Home
-          </a>{' '}
-          <a href="/">
+          </Link>{' '}
+          <Link to="profile">
             <img src={user} alt="Home Icon" /> Profile
-          </a>{' '}
-          <a href="/">
+          </Link>{' '}
+          <Link to="projects">
             <img src={projects} alt="Projects Icon" /> Projects
-          </a>{' '}
-          <a href="/">
+          </Link>{' '}
+          <Link to="tasks">
             <img src={tasklist} alt="Tasks Icon" /> Tasks
-          </a>{' '}
-          <a href="/">
+          </Link>{' '}
+          <Link to="/">
             <img src={signout} alt="Logout Icon" /> Logout
-          </a>
+          </Link>
         </NavButtons>
       )}
     </NavMain>

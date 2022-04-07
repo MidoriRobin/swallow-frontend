@@ -60,9 +60,25 @@ const InfoWrap = styled.div`
   }
 
   @media (min-width: ${breakpoints[2]}px) {
-    width: 80%;
-    flex-direction: row wrap;
-    justify-content: center;
+    width: 100%;
+
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    li {
+      width: fit-content;
+      flex-direction: row wrap;
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: ${breakpoints[2]}px) {
+    li:last-child {
+      margin: 0 auto;
+    }
   }
 `;
 
