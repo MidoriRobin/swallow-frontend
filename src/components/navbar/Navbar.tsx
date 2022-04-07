@@ -11,9 +11,10 @@ import signup from '../../assets/icons/icons8-sign-up-24.png';
 import tasklist from '../../assets/icons/icons8-tasklist-24.png';
 import user from '../../assets/icons/icons8-user-24.png';
 import hamburger from '../../assets/icons/icons8-hamburger-menu-16.png';
-import { useSpring, animated as a } from '@react-spring/web';
+import { useTransition, useSpring, animated as a } from '@react-spring/web';
 import useMediaQuery from '../../hooks/useMediaQuery';
 import { breakpoints } from '../../utils/helper';
+import { Link, useNavigate } from 'react-router-dom';
 
 Navbar.propTypes = {
   isLoggedIn: PropTypes.bool,
@@ -51,8 +52,8 @@ const NavMain = styled(a.nav)`
   position: absolute;
   /* height: 30rem;
   width: 30rem; */
-  height: 0;
-  width: 0;
+  height: 15rem;
+  width: 15rem;
   z-index: inherit;
 
   /* Presentation */
@@ -77,6 +78,7 @@ const NavMain = styled(a.nav)`
   @media (min-width: ${breakpoints[2]}px) {
     position: static;
     height: auto;
+    width: fit-content;
     justify-content: flex-end;
     align-items: center;
 
@@ -131,18 +133,60 @@ function Navbar({
   const [dropdown, setDropdown] = useState(false);
   const isDesktop = useMediaQuery(`(min-width: ${breakpoints[2]}px)`);
 
-  const dropdownProps = useSpring({
-    width: dropdown ? 0 : '30rem',
+  let navigate = useNavigate();
 
-    //! Adding an isDesktop check to adjust for larger breakpoints (rough impl.)
-    height: dropdown ? 0 : isDesktop ? 'auto' : '30rem',
+  const transitions = useTransition(dropdown, {
+    from: { left: '30rem' },
+    enter: { left: '15rem' },
+    leave: { left: '30rem' },
+    delay: 200,
   });
+
+  const NavBtns = (styles?: {}) => (
+    <NavMain className="nav-menu" style={styles}>
+      {!isLoggedIn ? (
+        <NavButtons className="nav-buttons">
+          <a href="/">
+            <img src={home} alt="Home Icon" />
+            Home
+          </a>{' '}
+          <a href="/">
+            <img src={about} alt="About Icon" /> About
+          </a>{' '}
+          <a href="/">
+            <img src={login} alt="Login Icon" /> Login
+          </a>{' '}
+          <a href="/">
+            <img src={signup} alt="Signup Icon" /> Signup
+          </a>
+        </NavButtons>
+      ) : (
+        <NavButtons className="nav-buttons">
+          <a href="/">
+            <img src={home} alt="Home Icon" /> Home
+          </a>{' '}
+          <a href="/">
+            <img src={user} alt="Home Icon" /> Profile
+          </a>{' '}
+          <a href="/">
+            <img src={projects} alt="Projects Icon" /> Projects
+          </a>{' '}
+          <a href="/">
+            <img src={tasklist} alt="Tasks Icon" /> Tasks
+          </a>{' '}
+          <a href="/">
+            <img src={signout} alt="Logout Icon" /> Logout
+          </a>
+        </NavButtons>
+      )}
+    </NavMain>
+  );
 
   // https://blog.logrocket.com/animations-with-react-spring/ https://codingstatus.com/how-to-display-images-in-react-js/
 
   return (
     <NavWrap role="navigation" className="nav-wrapper">
-      <NavIcon className="nav-icon">
+      <NavIcon className="nav-icon" onClick={() => navigate('/')}>
         <SwallowIcon width="2rem" height="2rem" />
         <h1>Swallow</h1>
       </NavIcon>
@@ -153,46 +197,8 @@ function Navbar({
       >
         <img src={hamburger} alt="Home Icon" />
       </MenuBtn>
-      {(dropdown || isDesktop) && (
-        // TODO: fix animation erroring out in console
-        <NavMain className="nav-menu" style={dropdownProps}>
-          {!isLoggedIn ? (
-            <NavButtons className="nav-buttons">
-              <a href="/">
-                <img src={home} alt="Home Icon" />
-                Home
-              </a>{' '}
-              <a href="/">
-                <img src={about} alt="About Icon" /> About
-              </a>{' '}
-              <a href="/">
-                <img src={login} alt="Login Icon" /> Login
-              </a>{' '}
-              <a href="/">
-                <img src={signup} alt="Signup Icon" /> Signup
-              </a>
-            </NavButtons>
-          ) : (
-            <NavButtons className="nav-buttons">
-              <a href="/">
-                <img src={home} alt="Home Icon" /> Home
-              </a>{' '}
-              <a href="/">
-                <img src={user} alt="Home Icon" /> Profile
-              </a>{' '}
-              <a href="/">
-                <img src={projects} alt="Projects Icon" /> Projects
-              </a>{' '}
-              <a href="/">
-                <img src={tasklist} alt="Tasks Icon" /> Tasks
-              </a>{' '}
-              <a href="/">
-                <img src={signout} alt="Logout Icon" /> Logout
-              </a>
-            </NavButtons>
-          )}
-        </NavMain>
-      )}
+      {transitions((styles, item) => item && NavBtns(styles))}
+      {isDesktop && NavBtns()}
     </NavWrap>
   );
 }
