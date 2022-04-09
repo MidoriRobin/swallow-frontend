@@ -4,7 +4,7 @@ import useAuth from '../../hooks/useAuth';
 import { UserContext } from '../../utils/context';
 
 export interface IAuthHandlerProps {
-  children: React.ReactNode;
+  children: JSX.Element;
 }
 
 /**
@@ -12,15 +12,13 @@ export interface IAuthHandlerProps {
  * @param param0
  * @returns
  */
-export default function AuthHandler({
-  children,
-}: IAuthHandlerProps): JSX.Element {
+export default function AuthHandler({ children }: IAuthHandlerProps) {
   let auth = React.useContext(UserContext);
   let location = useLocation();
 
-  return !auth.user ? (
+  return !auth.user.loggedIn ? (
     <Navigate to={'/login'} state={{ from: location }} replace />
   ) : (
-    <>{children}</>
+    children
   );
 }

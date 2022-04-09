@@ -9,6 +9,7 @@ import Profile from './Profile';
 import Project from './Project';
 import Projects from './Projects';
 import Signup from './Signup';
+import Task from './Task';
 import Tasks from './Tasks';
 
 const AppCont = styled.div`
@@ -22,18 +23,49 @@ const AppCont = styled.div`
 
 // interface IMainRouterProps {}
 
-function MainRouter(): JSX.Element {
+function MainRouter() {
   return (
     <AppCont className="app-container">
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="dashboard" element={<Dashboard />} />
+        <Route
+          path="dashboard"
+          element={
+            <AuthHandler>
+              <Dashboard />
+            </AuthHandler>
+          }
+        />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
-        <Route path="profile" element={<Profile />} />
-        <Route path="projects" element={<Projects />} />
-        <Route path="project/:id" element={<Project />} />
-        <Route path="tasks" element={<Tasks />} />
+        <Route
+          path="profile"
+          element={
+            <AuthHandler>
+              <Profile />
+            </AuthHandler>
+          }
+        />
+        <Route
+          path="projects"
+          element={
+            <AuthHandler>
+              <Projects />
+            </AuthHandler>
+          }
+        >
+          <Route path=":id" element={<Project />} />
+        </Route>
+        <Route
+          path="tasks"
+          element={
+            <AuthHandler>
+              <Tasks />
+            </AuthHandler>
+          }
+        >
+          <Route path=":id" element={<Task />} />
+        </Route>
       </Routes>
     </AppCont>
   );

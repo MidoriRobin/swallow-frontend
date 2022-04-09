@@ -12,7 +12,7 @@ interface IUser {
   loggedIn: boolean;
 }
 
-function App(): JSX.Element {
+function App() {
   const nullUser: IUser = { email: '', jwt: '', loggedIn: false };
 
   const [user, setUser] = useState<IUser>(nullUser);
