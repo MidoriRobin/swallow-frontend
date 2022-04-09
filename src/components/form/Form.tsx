@@ -8,14 +8,16 @@ const FormCont = styled.div`
   /* Presentation */
 `;
 
-interface IFormProps {}
+interface IFormProps {
+  callback: Function;
+}
 
 interface FormTypeData {
   Username: string;
   Password: string;
 }
 
-function SimpleForm(props: IFormProps): JSX.Element {
+function SimpleForm({ callback }: IFormProps): JSX.Element {
   const [formData, setFormData] = useState<FormTypeData>({
     Username: '',
     Password: '',
@@ -25,6 +27,7 @@ function SimpleForm(props: IFormProps): JSX.Element {
     e.preventDefault();
     console.log('Submit form data');
     console.log("Form's Data", formData);
+    callback(formData);
   }
 
   function handleChange(e: React.FormEvent<HTMLInputElement>) {

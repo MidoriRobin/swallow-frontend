@@ -7,31 +7,42 @@ import { useState } from 'react';
 import { UserContext } from './utils/context';
 
 interface IUser {
-  email: string | null;
-  jwt: string | null;
+  email: string;
+  jwt: string;
   loggedIn: boolean;
 }
 
 function App(): JSX.Element {
-  const nullUser: IUser = { email: null, jwt: null, loggedIn: false };
+  const nullUser: IUser = { email: '', jwt: '', loggedIn: false };
 
-  const [user, setUser] = useState<IUser>(nullUser);
+  const [user, setUser] = useState<IUser>(null!);
 
   useDebugValue(user?.email === null ? 'No User' : user.email);
 
-  const contextValue = {
-    user,
-    logout,
-    login,
-  };
-
-  function logout() {
-    setUser(nullUser);
+  /**
+   *
+   * @param loginInfo
+   * @param callback
+   */
+  function login(
+    loginInfo: { username: string; password: string },
+    callback: VoidFunction,
+  ) {
+    // TODO: call login api and return data into user object
+    // Upon calling login api pass the required login data from result into the user state (email and jwt)
+    // return loginAuth(loginInfo, () => {
+    //  setUser(loggedInUser);
+    // })
   }
 
-  function login(user: IUser) {
-    setUser(user);
+  function logout(callback: VoidFunction) {
+    // TODO: call logout api and upon success clear user state and run callback
+    // return logoutAuth(logoutInfo, () => {
+    //   setUser(nullUser);
+    // })
   }
+
+  let contextValue = { user, login, logout };
 
   return (
     <>

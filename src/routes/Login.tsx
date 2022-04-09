@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 import BackG from '../assets/images/Mass Circles - Opt.svg';
 import Card from '../components/card/Card';
 import SimpleForm from '../components/form/Form';
@@ -18,12 +19,27 @@ const LoginCont = styled.div`
 
 function Login(): JSX.Element {
   const isDesktop = useMediaQuery('(min-width: 1024px)');
+  let navigate = useNavigate();
+
+  function submtLogin({
+    username,
+    password,
+  }: {
+    username: string;
+    password: string;
+  }) {
+    let isValid = false;
+
+    if (isValid) {
+      navigate('/projects', { replace: true });
+    }
+  }
 
   return (
     <LoginCont className="login-container">
       <Card height="20rem">
         <h3>Login</h3>
-        <SimpleForm />
+        <SimpleForm callback={submtLogin} />
       </Card>
     </LoginCont>
   );
