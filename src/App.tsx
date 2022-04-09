@@ -15,9 +15,9 @@ interface IUser {
 function App(): JSX.Element {
   const nullUser: IUser = { email: '', jwt: '', loggedIn: false };
 
-  const [user, setUser] = useState<IUser>(null!);
+  const [user, setUser] = useState<IUser>(nullUser);
 
-  useDebugValue(user?.email === null ? 'No User' : user.email);
+  useDebugValue(user.email === null ? 'No User' : user?.email);
 
   /**
    *

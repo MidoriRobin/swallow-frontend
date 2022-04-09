@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
 import * as React from 'react';
 import { Route, Routes } from 'react-router-dom';
+import AuthHandler from '../components/auth/AuthHandler';
+import Dashboard from './Dashboard';
 import Home from './Home';
 import Login from './Login';
 import Profile from './Profile';
@@ -25,6 +27,7 @@ function MainRouter(): JSX.Element {
     <AppCont className="app-container">
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="dashboard" element={<Dashboard />} />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
         <Route path="profile" element={<Profile />} />

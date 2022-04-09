@@ -12,13 +12,15 @@ export interface IAuthHandlerProps {
  * @param param0
  * @returns
  */
-export default function AuthHandler({ children }: IAuthHandlerProps) {
+export default function AuthHandler({
+  children,
+}: IAuthHandlerProps): JSX.Element {
   let auth = React.useContext(UserContext);
   let location = useLocation();
 
   return !auth.user ? (
     <Navigate to={'/login'} state={{ from: location }} replace />
   ) : (
-    { children }
+    <>{children}</>
   );
 }
