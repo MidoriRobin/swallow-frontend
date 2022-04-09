@@ -1,7 +1,7 @@
-import * as React from "react";
+import * as React from 'react';
 
 export interface IAppProps {}
 
 export default function App(props: IAppProps) {
-  return <div></div>;
+  return <div>Project</div>;
 }
