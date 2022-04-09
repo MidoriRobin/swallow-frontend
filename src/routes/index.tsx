@@ -15,7 +15,7 @@ const AppCont = styled.div`
   /* Layout */
   display: flex;
   justify-content: center;
-  height: 95vh;
+  min-height: 95vh;
 
   /* Presentation */
 `;

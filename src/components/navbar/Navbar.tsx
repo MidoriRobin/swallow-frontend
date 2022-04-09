@@ -145,7 +145,7 @@ function Navbar({
   const NavBtns = (styles?: {}) => (
     <NavMain className="nav-menu" style={styles}>
       {!isLoggedIn ? (
-        <NavButtons className="nav-buttons">
+        <NavButtons className="nav-buttons" onClick={() => setDropdown(false)}>
           <Link to="/">
             <img src={home} alt="Home Icon" />
             Home
