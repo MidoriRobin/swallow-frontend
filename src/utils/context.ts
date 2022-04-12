@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface IUserContext {
-  user: { email: string; jwt: string; loggedIn: boolean };
+  user: { username: string; jwt: string; loggedIn: boolean };
   login: (
     loginInfo: { username: string; password: string },
     callback: VoidFunction,

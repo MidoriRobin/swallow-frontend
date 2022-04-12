@@ -5,19 +5,20 @@ import Navbar from './components/navbar/Navbar';
 import MainRouter from './routes';
 import { useState } from 'react';
 import { UserContext } from './utils/context';
+import { callLoginAPI } from './utils/backend';
 
 interface IUser {
-  email: string;
+  username: string;
   jwt: string;
   loggedIn: boolean;
 }
 
 function App() {
-  const nullUser: IUser = { email: '', jwt: '', loggedIn: false };
+  const nullUser: IUser = { username: '', jwt: '', loggedIn: false };
 
   const [user, setUser] = useState<IUser>(nullUser);
 
-  useDebugValue(user.email === null ? 'No User' : user?.email);
+  useDebugValue(user.username === null ? 'No User' : user?.username);
 
   /**
    *
@@ -28,11 +29,23 @@ function App() {
     loginInfo: { username: string; password: string },
     callback: VoidFunction,
   ) {
-    // TODO: call login api and return data into user object
-    // Upon calling login api pass the required login data from result into the user state (email and jwt)
-    // return loginAuth(loginInfo, () => {
-    //  setUser(loggedInUser);
-    // })
+    console.log('Login info recieved');
+
+    let userResult = { username: '', jwt: '', loggedIn: false };
+    console.log('login info: ', loginInfo);
+
+    try {
+      const { username, jwt } = callLoginAPI(loginInfo);
+
+      userResult.username = username;
+      userResult.jwt = jwt;
+
+      setUser({ ...userResult, loggedIn: true });
+      return callback();
+    } catch (error) {
+      console.log('An error occurred trying to login', error);
+      throw error;
+    }
   }
 
   function logout(callback: VoidFunction) {
