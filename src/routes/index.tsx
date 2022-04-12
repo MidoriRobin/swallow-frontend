@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import * as React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import AuthHandler from '../components/auth/AuthHandler';
+import { frontendUrls } from '../utils/urls';
 import Dashboard from './Dashboard';
 import Home from './Home';
 import Login from './Login';
@@ -29,17 +30,17 @@ function MainRouter() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route
-          path="dashboard"
+          path={frontendUrls.dashboard}
           element={
             <AuthHandler>
               <Dashboard />
             </AuthHandler>
           }
         />
-        <Route path="login" element={<Login />} />
-        <Route path="signup" element={<Signup />} />
+        <Route path={frontendUrls.login} element={<Login />} />
+        <Route path={frontendUrls.signup} element={<Signup />} />
         <Route
-          path="profile"
+          path={frontendUrls.profile}
           element={
             <AuthHandler>
               <Profile />
@@ -47,7 +48,7 @@ function MainRouter() {
           }
         />
         <Route
-          path="projects"
+          path={frontendUrls.projects}
           element={
             <AuthHandler>
               <Projects />
@@ -57,7 +58,7 @@ function MainRouter() {
           <Route path=":id" element={<Project />} />
         </Route>
         <Route
-          path="tasks"
+          path={frontendUrls.tasks}
           element={
             <AuthHandler>
               <Tasks />

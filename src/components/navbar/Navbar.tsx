@@ -11,7 +11,7 @@ import signup from '../../assets/icons/icons8-sign-up-24.png';
 import tasklist from '../../assets/icons/icons8-tasklist-24.png';
 import user from '../../assets/icons/icons8-user-24.png';
 import hamburger from '../../assets/icons/icons8-hamburger-menu-16.png';
-import { useTransition, useSpring, animated as a } from '@react-spring/web';
+import { useTransition, animated as a } from '@react-spring/web';
 import useMediaQuery from '../../hooks/useMediaQuery';
 import { breakpoints } from '../../utils/helper';
 import { Link, useNavigate } from 'react-router-dom';
@@ -44,6 +44,10 @@ const NavIcon = styled.div`
   h1 {
     font-size: 1.4rem;
   }
+
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 const NavMain = styled(a.nav)`
@@ -52,7 +56,8 @@ const NavMain = styled(a.nav)`
   position: absolute;
   /* height: 30rem;
   width: 30rem; */
-  height: 15rem;
+  /* height: 15rem; */
+  min-height: fit-content;
   width: 15rem;
   z-index: inherit;
 
@@ -120,6 +125,12 @@ const MenuBtn = styled.button`
   }
 `;
 
+/**
+ * Comunicates the relevant nav links to be rendered as a nav bar component
+ * TODO: Convert to a more modular component which accepts only a list of components to be rendered as nav buttons and a home icon
+ * @param param0 Props indicating
+ * @returns
+ */
 function Navbar({
   isLoggedIn,
   children,
@@ -142,6 +153,7 @@ function Navbar({
     delay: 200,
   });
 
+  //TODO: Export into its own component to be imported here
   const NavBtns = (styles?: {}) => (
     <NavMain className="nav-menu" style={styles}>
       {!isLoggedIn ? (

@@ -9,25 +9,25 @@ const FormCont = styled.div`
 `;
 
 interface IFormProps {
-  callback: Function;
+  submitAction: Function;
 }
 
 interface FormTypeData {
-  Username: string;
-  Password: string;
+  username: string;
+  password: string;
 }
 
-function SimpleForm({ callback }: IFormProps): JSX.Element {
+function SimpleForm({ submitAction }: IFormProps): JSX.Element {
   const [formData, setFormData] = useState<FormTypeData>({
-    Username: '',
-    Password: '',
+    username: '',
+    password: '',
   });
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
     console.log('Submit form data');
     console.log("Form's Data", formData);
-    callback(formData);
+    submitAction(formData);
   }
 
   function handleChange(e: React.FormEvent<HTMLInputElement>) {
@@ -51,8 +51,8 @@ function SimpleForm({ callback }: IFormProps): JSX.Element {
           Username:{' '}
           <input
             type="text"
-            name="Username"
-            value={formData.Username}
+            name="username"
+            value={formData.username}
             onChange={handleChange}
           />{' '}
         </label>
@@ -60,8 +60,8 @@ function SimpleForm({ callback }: IFormProps): JSX.Element {
           Password:{' '}
           <input
             type="text"
-            name="Password"
-            value={formData.Password}
+            name="password"
+            value={formData.password}
             onChange={handleChange}
           />{' '}
         </label>
