@@ -5,7 +5,7 @@ import Navbar from './components/navbar/Navbar';
 import MainRouter from './routes';
 import { useState } from 'react';
 import { UserContext } from './utils/context';
-import { callLoginAPI } from './utils/backend';
+import { callLoginAPI, callLogoutAPI } from './utils/backend';
 
 interface IUser {
   username: string;
@@ -53,6 +53,14 @@ function App() {
     // return logoutAuth(logoutInfo, () => {
     //   setUser(nullUser);
     // })
+
+    try {
+      callLogoutAPI(user.jwt);
+      setUser(nullUser);
+      return callback();
+    } catch (error) {
+      console.log('There was some issue trying to log out');
+    }
   }
 
   let contextValue = { user, login, logout };

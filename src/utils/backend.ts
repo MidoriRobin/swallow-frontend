@@ -33,12 +33,19 @@ function callLoginAPI({
   return { username, jwt };
 }
 
+/**
+ * TODO: Replace with actual api call
+ * @param jwt string with the jwt of the logged in user
+ */
 function callLogoutAPI(jwt: string) {
   try {
-    // Some axios call
+    // Some axios call with jwt
+    if (jwt !== 'sometoken') {
+      throw new Error('LogoutError');
+    }
   } catch (error) {
     throw new Error('LogoutError');
   }
 }
 
-export { callLoginAPI };
+export { callLoginAPI, callLogoutAPI };

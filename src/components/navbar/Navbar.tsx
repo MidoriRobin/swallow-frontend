@@ -15,6 +15,7 @@ import { useTransition, animated as a } from '@react-spring/web';
 import useMediaQuery from '../../hooks/useMediaQuery';
 import { breakpoints } from '../../utils/helper';
 import { Link, useNavigate } from 'react-router-dom';
+import useAuth from '../../hooks/useAuth';
 
 Navbar.propTypes = {
   isLoggedIn: PropTypes.bool,
@@ -143,6 +144,7 @@ function Navbar({
   // TODO: set to true when isDesktop
   const [dropdown, setDropdown] = useState(false);
   const isDesktop = useMediaQuery(`(min-width: ${breakpoints[2]}px)`);
+  const auth = useAuth();
 
   let navigate = useNavigate();
 
@@ -152,6 +154,13 @@ function Navbar({
     leave: { left: '30rem' },
     delay: 200,
   });
+
+  function handleLogout(e: React.SyntheticEvent) {
+    e.preventDefault();
+    console.log('Logging out..');
+
+    auth.logout(() => navigate('/', { replace: true }));
+  }
 
   //TODO: Export into its own component to be imported here
   const NavBtns = (styles?: {}) => (
@@ -186,7 +195,7 @@ function Navbar({
           <Link to="tasks">
             <img src={tasklist} alt="Tasks Icon" /> Tasks
           </Link>{' '}
-          <Link to="/">
+          <Link to="/" onClick={handleLogout}>
             <img src={signout} alt="Logout Icon" /> Logout
           </Link>
         </NavButtons>
