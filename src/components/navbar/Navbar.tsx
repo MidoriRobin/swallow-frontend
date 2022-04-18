@@ -11,10 +11,11 @@ import signup from '../../assets/icons/icons8-sign-up-24.png';
 import tasklist from '../../assets/icons/icons8-tasklist-24.png';
 import user from '../../assets/icons/icons8-user-24.png';
 import hamburger from '../../assets/icons/icons8-hamburger-menu-16.png';
-import { useTransition, useSpring, animated as a } from '@react-spring/web';
+import { useTransition, animated as a } from '@react-spring/web';
 import useMediaQuery from '../../hooks/useMediaQuery';
 import { breakpoints } from '../../utils/helper';
 import { Link, useNavigate } from 'react-router-dom';
+import useAuth from '../../hooks/useAuth';
 
 Navbar.propTypes = {
   isLoggedIn: PropTypes.bool,
@@ -44,6 +45,10 @@ const NavIcon = styled.div`
   h1 {
     font-size: 1.4rem;
   }
+
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 const NavMain = styled(a.nav)`
@@ -52,7 +57,8 @@ const NavMain = styled(a.nav)`
   position: absolute;
   /* height: 30rem;
   width: 30rem; */
-  height: 15rem;
+  /* height: 15rem; */
+  min-height: fit-content;
   width: 15rem;
   z-index: inherit;
 
@@ -120,6 +126,12 @@ const MenuBtn = styled.button`
   }
 `;
 
+/**
+ * Comunicates the relevant nav links to be rendered as a nav bar component
+ * TODO: Convert to a more modular component which accepts only a list of components to be rendered as nav buttons and a home icon
+ * @param param0 Props indicating
+ * @returns
+ */
 function Navbar({
   isLoggedIn,
   children,
@@ -132,6 +144,7 @@ function Navbar({
   // TODO: set to true when isDesktop
   const [dropdown, setDropdown] = useState(false);
   const isDesktop = useMediaQuery(`(min-width: ${breakpoints[2]}px)`);
+  const auth = useAuth();
 
   let navigate = useNavigate();
 
@@ -142,10 +155,18 @@ function Navbar({
     delay: 200,
   });
 
+  function handleLogout(e: React.SyntheticEvent) {
+    e.preventDefault();
+    console.log('Logging out..');
+
+    auth.logout(() => navigate('/', { replace: true }));
+  }
+
+  //TODO: Export into its own component to be imported here
   const NavBtns = (styles?: {}) => (
     <NavMain className="nav-menu" style={styles}>
       {!isLoggedIn ? (
-        <NavButtons className="nav-buttons">
+        <NavButtons className="nav-buttons" onClick={() => setDropdown(false)}>
           <Link to="/">
             <img src={home} alt="Home Icon" />
             Home
@@ -174,7 +195,7 @@ function Navbar({
           <Link to="tasks">
             <img src={tasklist} alt="Tasks Icon" /> Tasks
           </Link>{' '}
-          <Link to="/">
+          <Link to="/" onClick={handleLogout}>
             <img src={signout} alt="Logout Icon" /> Logout
           </Link>
         </NavButtons>
