@@ -4,12 +4,22 @@ import { useState } from 'react';
 
 const FormCont = styled.div`
   /* Layout */
+  display: flex;
+  flex-direction: column;
+  /* Presentation */
+`;
+
+const InputArea = styled.input`
+  /* Layout */
 
   /* Presentation */
 `;
 
 interface IFormProps {
   submitAction: Function;
+  fieldItems?: Field[];
+  formStyle?: {};
+  className: string;
 }
 
 interface FormTypeData {
@@ -17,11 +27,74 @@ interface FormTypeData {
   password: string;
 }
 
-function SimpleForm({ submitAction }: IFormProps): JSX.Element {
-  const [formData, setFormData] = useState<FormTypeData>({
-    username: '',
-    password: '',
-  });
+interface Field {
+  name: string;
+  size: 'sml' | 'med' | 'lrg';
+  type: 'checkbox' | 'date' | 'email' | 'password' | 'number' | 'text';
+  style: {};
+}
+
+// TODO:Set form to accept an array with a list of objects indicating the number of fields and how the fields should be structured (DONE)
+// TODO: Add styling
+//! Defer form styling to calling component
+function SimpleForm({
+  submitAction,
+  fieldItems,
+  formStyle,
+  className,
+}: IFormProps): JSX.Element {
+  const [formData, setFormData] = useState<any>({});
+
+  const testFormProps: Field[] = [
+    {
+      name: 'Username',
+      size: 'med',
+      type: 'text',
+      style: {},
+    },
+    {
+      name: 'Password',
+      size: 'med',
+      type: 'text',
+      style: {},
+    },
+  ];
+
+  React.useEffect(() => {
+    const tempFormData = [
+      {
+        name: 'Username',
+        size: 'med',
+        type: 'text',
+        style: {},
+      },
+      {
+        name: 'Password',
+        size: 'med',
+        type: 'password',
+        style: {},
+      },
+    ];
+
+    let formDataOne: any = {};
+
+    // fieldItems?.forEach((fieldItem) => {
+    //   let key: keyof typeof fieldItem;
+
+    //   for (const key in fieldItem) {
+    //     console.log(key);
+    //     formDataOne[key] = '';
+    //   }
+    // });
+
+    testFormProps?.forEach((fieldItem) => {
+      console.log(fieldItem.name);
+
+      formDataOne[fieldItem.name.toLowerCase()] = '';
+    });
+
+    setFormData(formDataOne);
+  }, [fieldItems]);
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -45,11 +118,24 @@ function SimpleForm({ submitAction }: IFormProps): JSX.Element {
   }
 
   return (
-    <FormCont>
-      <form action="" onSubmit={handleSubmit}>
-        <label>
+    // <FormCont className="form-container">
+    <form action="" onSubmit={handleSubmit} className={className}>
+      {testFormProps.map((fieldItem, index) => {
+        return (
+          <label key={index}>
+            {fieldItem.name}:
+            <InputArea
+              type={fieldItem.type}
+              name={fieldItem.name.toLowerCase()}
+              value={formData[`${fieldItem.name}`]}
+              onChange={handleChange}
+            />
+          </label>
+        );
+      })}
+      {/* <label>
           Username:{' '}
-          <input
+          <InputArea
             type="text"
             name="username"
             value={formData.username}
@@ -58,16 +144,16 @@ function SimpleForm({ submitAction }: IFormProps): JSX.Element {
         </label>
         <label>
           Password:{' '}
-          <input
+          <InputArea
             type="text"
             name="password"
             value={formData.password}
             onChange={handleChange}
           />{' '}
-        </label>
-        <button type="submit">Submit</button>
-      </form>
-    </FormCont>
+        </label> */}
+      <button type="submit">Submit</button>
+    </form>
+    // </FormCont>
   );
 }
 

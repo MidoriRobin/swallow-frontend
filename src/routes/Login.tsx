@@ -16,6 +16,29 @@ const LoginCont = styled.div`
   /* Presentation */
   /*TODO: Figure out why this is not renedering */
   background: url(${BackG});
+
+  .form-area {
+    display: flex;
+    flex-direction: column;
+    height: 15rem;
+    justify-content: space-around;
+  }
+
+  .login-form {
+    height: 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    button {
+      width: 50%;
+    }
+  }
+
+  h3 {
+    text-align: center;
+  }
 `;
 
 const ErrorCont = styled.div`
@@ -70,10 +93,12 @@ function Login(): JSX.Element {
   return (
     <LoginCont className="login-container">
       <Card height="20rem">
-        <h3>Login</h3>
-        {error && <ErrorCont>There was an error trying to login</ErrorCont>}
-        {success && <SuccessCont>Login successful!</SuccessCont>}
-        <SimpleForm submitAction={submitLogin} />
+        <div className="form-area">
+          <h3>Login</h3>
+          {error && <ErrorCont>There was an error trying to login</ErrorCont>}
+          {success && <SuccessCont>Login successful!</SuccessCont>}
+          <SimpleForm submitAction={submitLogin} className="login-form" />
+        </div>
       </Card>
     </LoginCont>
   );
