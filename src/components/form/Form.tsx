@@ -22,11 +22,6 @@ interface IFormProps {
   className: string;
 }
 
-interface FormTypeData {
-  username: string;
-  password: string;
-}
-
 interface Field {
   name: string;
   size: 'sml' | 'med' | 'lrg';
@@ -45,49 +40,10 @@ function SimpleForm({
 }: IFormProps): JSX.Element {
   const [formData, setFormData] = useState<any>({});
 
-  const testFormProps: Field[] = [
-    {
-      name: 'Username',
-      size: 'med',
-      type: 'text',
-      style: {},
-    },
-    {
-      name: 'Password',
-      size: 'med',
-      type: 'text',
-      style: {},
-    },
-  ];
-
   React.useEffect(() => {
-    const tempFormData = [
-      {
-        name: 'Username',
-        size: 'med',
-        type: 'text',
-        style: {},
-      },
-      {
-        name: 'Password',
-        size: 'med',
-        type: 'password',
-        style: {},
-      },
-    ];
-
     let formDataOne: any = {};
 
-    // fieldItems?.forEach((fieldItem) => {
-    //   let key: keyof typeof fieldItem;
-
-    //   for (const key in fieldItem) {
-    //     console.log(key);
-    //     formDataOne[key] = '';
-    //   }
-    // });
-
-    testFormProps?.forEach((fieldItem) => {
+    fieldItems?.forEach((fieldItem) => {
       console.log(fieldItem.name);
 
       formDataOne[fieldItem.name.toLowerCase()] = '';
@@ -118,9 +74,8 @@ function SimpleForm({
   }
 
   return (
-    // <FormCont className="form-container">
     <form action="" onSubmit={handleSubmit} className={className}>
-      {testFormProps.map((fieldItem, index) => {
+      {fieldItems?.map((fieldItem, index) => {
         return (
           <label key={index}>
             {fieldItem.name}:
@@ -133,27 +88,8 @@ function SimpleForm({
           </label>
         );
       })}
-      {/* <label>
-          Username:{' '}
-          <InputArea
-            type="text"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-          />{' '}
-        </label>
-        <label>
-          Password:{' '}
-          <InputArea
-            type="text"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-          />{' '}
-        </label> */}
       <button type="submit">Submit</button>
     </form>
-    // </FormCont>
   );
 }
 

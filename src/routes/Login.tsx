@@ -17,28 +17,46 @@ const LoginCont = styled.div`
   /*TODO: Figure out why this is not renedering */
   background: url(${BackG});
 
-  .form-area {
-    display: flex;
-    flex-direction: column;
-    height: 15rem;
-    justify-content: space-around;
-  }
-
   .login-form {
-    height: 5rem;
+    height: 8rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
 
+    input {
+      display: flex;
+      flex-direction: column;
+    }
+
     button {
-      width: 50%;
+      width: 7rem;
+      height: 1.4rem;
+      background-color: white;
+      color: #4caf50;
+      border: none;
+      border: solid 1px #4caf50;
+      border-radius: 2px;
+      transition-duration: 0.4s;
+    }
+
+    button:hover {
+      background-color: #4caf50;
+      color: black;
+      cursor: pointer;
     }
   }
 
   h3 {
     text-align: center;
   }
+`;
+
+const FormArea = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 17rem;
+  justify-content: space-around;
 `;
 
 const ErrorCont = styled.div`
@@ -63,9 +81,31 @@ const SuccessCont = styled.div`
   color: white;
 `;
 
+interface Field {
+  name: string;
+  size: 'sml' | 'med' | 'lrg';
+  type: 'checkbox' | 'date' | 'email' | 'password' | 'number' | 'text';
+  style: {};
+}
+
 function Login(): JSX.Element {
   const [error, setError] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
+
+  const loginFormFields: Field[] = [
+    {
+      name: 'Username',
+      size: 'med',
+      type: 'text',
+      style: {},
+    },
+    {
+      name: 'Password',
+      size: 'med',
+      type: 'text',
+      style: {},
+    },
+  ];
 
   let navigate = useNavigate();
   let auth = useAuth();
@@ -93,12 +133,17 @@ function Login(): JSX.Element {
   return (
     <LoginCont className="login-container">
       <Card height="20rem">
-        <div className="form-area">
+        <FormArea className="form-area">
           <h3>Login</h3>
           {error && <ErrorCont>There was an error trying to login</ErrorCont>}
           {success && <SuccessCont>Login successful!</SuccessCont>}
-          <SimpleForm submitAction={submitLogin} className="login-form" />
-        </div>
+          <SimpleForm
+            submitAction={submitLogin}
+            fieldItems={loginFormFields}
+            // A classname to apply to the component to add styling
+            className="login-form"
+          />
+        </FormArea>
       </Card>
     </LoginCont>
   );
