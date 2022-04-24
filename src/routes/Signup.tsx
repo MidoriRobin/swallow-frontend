@@ -116,12 +116,12 @@ function Signup(): JSX.Element {
       if (error instanceof Error) {
         // If there was an issue trying to login navigate the user to the login page and allow them to attempt again
 
-        if (error.message === 'LoginError') {
+        if (error.name === 'LoginError') {
           setSuccess(true);
           setTimeout(() => navigate('/login', { replace: true }), 1000);
         }
 
-        if (error.message === 'SignupError') {
+        if (error.name === 'SignupError') {
           setError('There was an error signing up, please try again later');
         }
       }
@@ -130,6 +130,7 @@ function Signup(): JSX.Element {
 
   return (
     <SignupCont>
+      {/* TODO: maybe i shouldnt use a card for the container for this form */}
       <Card>
         <FormArea className="form-area">
           <h4>Signup</h4>
