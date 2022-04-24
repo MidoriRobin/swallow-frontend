@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Card from '../components/card/Card';
-import SimpleForm from '../components/form/Form';
+import SimpleForm, { Field } from '../components/form/Form';
 import useAuth from '../hooks/useAuth';
 import { callSignupAPI } from '../utils/backend';
 
@@ -74,24 +74,16 @@ type signupData = {
   lastname: string;
 };
 
-interface Field {
-  name: string;
-  size: 'sml' | 'med' | 'lrg';
-  type: 'checkbox' | 'date' | 'email' | 'password' | 'number' | 'text';
-  style: {};
-  required?: boolean;
-}
-
 function Signup(): JSX.Element {
   const [error, setError] = React.useState<string>();
   const [success, setSuccess] = React.useState<boolean>(false);
 
   const signupFormFields: Field[] = [
-    { name: 'Username', size: 'med', type: 'text', style: {} },
-    { name: 'Password', size: 'med', type: 'password', style: {} },
-    { name: 'Email', size: 'med', type: 'email', style: {} },
     { name: 'First Name', size: 'med', type: 'text', style: {} },
     { name: 'Last Name', size: 'med', type: 'text', style: {} },
+    { name: 'Email', size: 'med', type: 'email', style: {} },
+    { name: 'Username', size: 'med', type: 'text', style: {} },
+    { name: 'Password', size: 'med', type: 'password', style: {} },
   ];
 
   let navigate = useNavigate();

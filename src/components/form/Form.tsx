@@ -22,13 +22,13 @@ interface IFormProps {
   className: string;
 }
 
-interface Field {
+export type Field = {
   name: string;
   size: 'sml' | 'med' | 'lrg';
   type: 'checkbox' | 'date' | 'email' | 'password' | 'number' | 'text';
   style: {};
   required?: boolean;
-}
+};
 
 // TODO:Set form to accept an array with a list of objects indicating the number of fields and how the fields should be structured (DONE)
 // TODO: Add styling

@@ -3,7 +3,7 @@ import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import BackG from '../assets/images/Mass Circles - Opt.svg';
 import Card from '../components/card/Card';
-import SimpleForm from '../components/form/Form';
+import SimpleForm, { Field } from '../components/form/Form';
 import useAuth from '../hooks/useAuth';
 import useMediaQuery from '../hooks/useMediaQuery';
 
@@ -80,13 +80,6 @@ const SuccessCont = styled.div`
   background-color: green;
   color: white;
 `;
-
-interface Field {
-  name: string;
-  size: 'sml' | 'med' | 'lrg';
-  type: 'checkbox' | 'date' | 'email' | 'password' | 'number' | 'text';
-  style: {};
-}
 
 function Login(): JSX.Element {
   const [error, setError] = React.useState(false);
