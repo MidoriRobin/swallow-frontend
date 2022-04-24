@@ -18,3 +18,10 @@ export class LogoutError extends Error {
     this.name = 'LogoutError';
   }
 }
+
+export class ValidationError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = 'ValidationError';
+  }
+}
