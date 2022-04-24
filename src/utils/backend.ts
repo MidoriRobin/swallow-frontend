@@ -48,4 +48,16 @@ function callLogoutAPI(jwt: string) {
   }
 }
 
-export { callLoginAPI, callLogoutAPI };
+function callSignupAPI(signupData: {}) {
+  try {
+    // some axios call with formdata
+    if (signupData) {
+    }
+  } catch (error) {
+    // Some issue with signing up
+    console.log(error);
+    throw new Error('SignupError');
+  }
+}
+
+export { callLoginAPI, callLogoutAPI, callSignupAPI };
