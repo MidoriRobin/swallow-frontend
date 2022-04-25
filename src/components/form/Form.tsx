@@ -4,24 +4,61 @@ import { useState } from 'react';
 
 const FormCont = styled.div`
   /* Layout */
+  display: flex;
+  flex-direction: column;
+  /* Presentation */
+`;
+
+const InputArea = styled.input`
+  /* Layout */
 
   /* Presentation */
 `;
 
 interface IFormProps {
   submitAction: Function;
+  fieldItems?: Field[];
+  formStyle?: {};
+  className: string;
 }
 
-interface FormTypeData {
-  username: string;
-  password: string;
-}
+export type Field = {
+  // Name of the field and its corresponding name in data form
+  name: string;
+  size: 'sml' | 'med' | 'lrg';
+  type: 'checkbox' | 'date' | 'email' | 'password' | 'number' | 'text';
+  // specific styling to be applied to field
+  style: {};
+  required?: boolean;
+  max?: number;
+  min?: number;
+  pattern?: string;
+  // Any important info to be communicated for the field
+  tooltip?: string;
+};
 
-function SimpleForm({ submitAction }: IFormProps): JSX.Element {
-  const [formData, setFormData] = useState<FormTypeData>({
-    username: '',
-    password: '',
-  });
+// TODO:Set form to accept an array with a list of objects indicating the number of fields and how the fields should be structured (DONE)
+// TODO: Add styling
+// TODO: Add validation for required fields
+//! Defer form styling to calling component
+function SimpleForm({
+  submitAction,
+  fieldItems,
+  formStyle,
+  className,
+}: IFormProps): JSX.Element {
+  const [formData, setFormData] = useState<any>({});
+
+  React.useEffect(() => {
+    let formDataOne: any = {};
+
+    fieldItems?.forEach((fieldItem) => {
+      const field = fieldItem.name.toLowerCase().replace(' ', '');
+      formDataOne[field] = '';
+    });
+
+    setFormData(formDataOne);
+  }, [fieldItems]);
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -40,34 +77,26 @@ function SimpleForm({ submitAction }: IFormProps): JSX.Element {
     newFormData[keyTyped] = e.currentTarget.value;
 
     setFormData({ ...newFormData });
-
-    console.log('New form data', newFormData);
   }
 
   return (
-    <FormCont>
-      <form action="" onSubmit={handleSubmit}>
-        <label>
-          Username:{' '}
-          <input
-            type="text"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-          />{' '}
-        </label>
-        <label>
-          Password:{' '}
-          <input
-            type="text"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-          />{' '}
-        </label>
-        <button type="submit">Submit</button>
-      </form>
-    </FormCont>
+    <form action="" onSubmit={handleSubmit} className={className}>
+      {fieldItems?.map((fieldItem, index) => {
+        return (
+          <label key={index}>
+            {fieldItem.name}:
+            <InputArea
+              type={fieldItem.type}
+              name={fieldItem.name.toLowerCase()}
+              value={formData[`${fieldItem.name}`]}
+              onChange={handleChange}
+              required={fieldItem.required}
+            />
+          </label>
+        );
+      })}
+      <button type="submit">Submit</button>
+    </form>
   );
 }
 
