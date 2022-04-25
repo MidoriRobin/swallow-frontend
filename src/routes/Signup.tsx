@@ -35,6 +35,10 @@ const FormArea = styled.div`
     input {
       display: flex;
       flex-direction: column;
+      border: none;
+      border-bottom: solid 1.5px black;
+      border-radius: 2px;
+      background-color: #dbdbdb;
     }
 
     label {
@@ -79,11 +83,23 @@ function Signup(): JSX.Element {
   const [success, setSuccess] = React.useState<boolean>(false);
 
   const signupFormFields: Field[] = [
-    { name: 'First Name', size: 'med', type: 'text', style: {} },
+    {
+      name: 'First Name',
+      size: 'med',
+      type: 'text',
+      style: {},
+      required: true,
+    },
     { name: 'Last Name', size: 'med', type: 'text', style: {} },
-    { name: 'Email', size: 'med', type: 'email', style: {} },
-    { name: 'Username', size: 'med', type: 'text', style: {} },
-    { name: 'Password', size: 'med', type: 'password', style: {} },
+    { name: 'Email', size: 'med', type: 'email', style: {}, required: true },
+    { name: 'Username', size: 'med', type: 'text', style: {}, required: true },
+    {
+      name: 'Password',
+      size: 'med',
+      type: 'password',
+      style: {},
+      required: true,
+    },
   ];
 
   let navigate = useNavigate();
@@ -99,10 +115,11 @@ function Signup(): JSX.Element {
 
       auth.login({ username, password }, () => {
         console.log('login successful');
+        setSuccess(true);
         setTimeout(() => navigate('/dashboard', { replace: true }), 1000);
       });
     } catch (error) {
-      console.log(error);
+      console.log('error in signup component', error);
       console.log('There was an issue trying to signup');
 
       if (error instanceof Error) {
@@ -116,6 +133,11 @@ function Signup(): JSX.Element {
         if (error.name === 'SignupError') {
           setError('There was an error signing up, please try again later');
         }
+
+        if (error.name === 'ValidationError') {
+          // What kind of validation errors would be returned from serverside?: (Username exists, email exists)
+          setError('There was an error with the form below: ' + error.message);
+        }
       }
     }
   }
@@ -123,14 +145,10 @@ function Signup(): JSX.Element {
   return (
     <SignupCont>
       {/* TODO: maybe i shouldnt use a card for the container for this form */}
-      <Card>
+      <Card height="50rem">
         <FormArea className="form-area">
           <h4>Signup</h4>
-          {error && (
-            <div>
-              There was an error trying to signup, please try again later
-            </div>
-          )}
+          {error && <div>{error}</div>}
           {success && <div>Signup successful</div>}
           <SimpleForm
             submitAction={submitSignup}

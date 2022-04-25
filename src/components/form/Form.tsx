@@ -23,11 +23,18 @@ interface IFormProps {
 }
 
 export type Field = {
+  // Name of the field and its corresponding name in data form
   name: string;
   size: 'sml' | 'med' | 'lrg';
   type: 'checkbox' | 'date' | 'email' | 'password' | 'number' | 'text';
+  // specific styling to be applied to field
   style: {};
   required?: boolean;
+  max?: number;
+  min?: number;
+  pattern?: string;
+  // Any important info to be communicated for the field
+  tooltip?: string;
 };
 
 // TODO:Set form to accept an array with a list of objects indicating the number of fields and how the fields should be structured (DONE)
@@ -46,9 +53,8 @@ function SimpleForm({
     let formDataOne: any = {};
 
     fieldItems?.forEach((fieldItem) => {
-      console.log(fieldItem.name);
-
-      formDataOne[fieldItem.name.toLowerCase()] = '';
+      const field = fieldItem.name.toLowerCase().replace(' ', '');
+      formDataOne[field] = '';
     });
 
     setFormData(formDataOne);
@@ -71,8 +77,6 @@ function SimpleForm({
     newFormData[keyTyped] = e.currentTarget.value;
 
     setFormData({ ...newFormData });
-
-    console.log('New form data', newFormData);
   }
 
   return (
@@ -86,6 +90,7 @@ function SimpleForm({
               name={fieldItem.name.toLowerCase()}
               value={formData[`${fieldItem.name}`]}
               onChange={handleChange}
+              required={fieldItem.required}
             />
           </label>
         );
