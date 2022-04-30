@@ -28,6 +28,8 @@ const NavWrap = styled.div`
   padding: 0 1rem;
   z-index: 1;
 
+  flex: 0 1 auto;
+
   background-color: var(--primary-color-light-200);
 
   @media (min-width: ${breakpoints[2]}px) {

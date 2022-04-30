@@ -16,6 +16,8 @@ code {
 #root {
   width: 100vw;
   height: 100vh;
+  display: flex;
+  flex-flow: column;
 }
 
 /*Thanks to https://colordesigner.io/  in help setting up the color palattes */
