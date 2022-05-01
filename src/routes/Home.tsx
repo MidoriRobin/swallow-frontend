@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Card from '../components/card/Card';
 import Slider from '../components/slider/';
+import useAuth from '../hooks/useAuth';
 import { breakpoints } from '../utils/helper';
 
 const HomeWrap = styled.div`
@@ -91,6 +93,17 @@ const Image = styled.div<{ background?: string }>`
 `;
 
 function Home(): JSX.Element {
+  let auth = useAuth();
+  let navigate = useNavigate();
+
+  React.useEffect(() => {
+    // When logged in route to dashboard instead
+
+    if (auth.user.loggedIn) {
+      navigate('/dashboard', { replace: true });
+    }
+  }, []);
+
   const sliderItems = [
     {
       id: 'thing1',
