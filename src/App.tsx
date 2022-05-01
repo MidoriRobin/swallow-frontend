@@ -1,4 +1,4 @@
-import React, { useDebugValue } from 'react';
+import React, { useDebugValue, useEffect } from 'react';
 // import logo from './logo.svg';
 import './App.css';
 import Navbar from './components/navbar/Navbar';
@@ -6,6 +6,7 @@ import MainRouter from './routes';
 import { useState } from 'react';
 import { UserContext } from './utils/context';
 import { callLoginAPI, callLogoutAPI } from './utils/backend';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 interface IUser {
   username: string;
@@ -18,7 +19,33 @@ function App() {
 
   const [user, setUser] = useState<IUser>(nullUser);
 
+  let navigate = useNavigate();
+  let location = useLocation();
+
   useDebugValue(user.username === null ? 'No User' : user?.username);
+
+  useEffect(() => {
+    // Either store data breifly in session storage, or save data to db and refetch using api call
+
+    if (user.loggedIn) {
+      window.onbeforeunload = () => {
+        localStorage.setItem('dataBefore', JSON.stringify(user));
+        localStorage.setItem('locationBefore', location.pathname);
+        localStorage.setItem('pageReloaded', 'true');
+      };
+    }
+
+    //? Is this a security concern: brief use of localstorage
+    if (localStorage.getItem('dataBefore')) {
+      setUser(JSON.parse(localStorage!.getItem('dataBefore') || '{}'));
+      navigate(localStorage!.getItem('locationBefore') || '', {
+        replace: true,
+      });
+      // console.log(JSON.parse(localStorage!.getItem('dataBefore') || '{}'));
+      localStorage.removeItem('dataBefore');
+      localStorage.removeItem('locationBefore');
+    }
+  }, [user, location.pathname, navigate]);
 
   /**
    *
