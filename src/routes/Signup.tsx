@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Card from '../components/card/Card';
 import SimpleForm, { Field } from '../components/form/Form';
 import useAuth from '../hooks/useAuth';
-import { callSignupAPI } from '../utils/backend';
+import { callSignupAPI } from '../apis/userAPIs';
 
 const SignupCont = styled.div`
   /* Layout */

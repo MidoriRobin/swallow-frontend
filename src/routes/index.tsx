@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import * as React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import AuthHandler from '../components/auth/AuthHandler';
+import { breakpoints } from '../utils/helper';
 import { frontendUrls } from '../utils/urls';
 import Dashboard from './Dashboard';
 import Home from './Home';
@@ -20,6 +21,10 @@ const AppCont = styled.div`
   flex: 1 1 auto;
 
   /* Presentation */
+
+  @media (min-width: ${breakpoints[2]}px) {
+    padding: 0 5rem;
+  }
 `;
 
 // interface IMainRouterProps {}

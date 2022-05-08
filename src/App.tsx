@@ -5,7 +5,7 @@ import Navbar from './components/navbar/Navbar';
 import MainRouter from './routes';
 import { useState } from 'react';
 import { UserContext } from './utils/context';
-import { callLoginAPI, callLogoutAPI } from './utils/backend';
+import { callLoginAPI, callLogoutAPI } from './apis/userAPIs';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 interface IUser {
