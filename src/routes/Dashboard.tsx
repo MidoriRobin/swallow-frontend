@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { breakpoints } from '../utils/helper';
+import { frontendUrls } from '../utils/urls';
 
 const DashCont = styled.div`
   /* Layout */
@@ -21,11 +23,26 @@ const DashCont = styled.div`
     margin: 1rem auto;
     justify-content: center;
   }
+
+  @media (min-width: ${breakpoints[2]}px) {
+    display: grid;
+    padding: 0;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 3rem auto 10rem;
+    grid-column-gap: 5rem;
+    grid-row-gap: 1rem;
+
+    .other-projects {
+      width: 20rem;
+      grid-row: 3 / 4;
+      grid-column: 1 / 2;
+    }
+  }
 `;
 
 const MainProject = styled.div`
   /* Layout */
-  height: 20rem;
+  height: 25rem;
   display: flex;
   flex-direction: column;
   width: -webkit-fill-available;
@@ -35,6 +52,31 @@ const MainProject = styled.div`
   padding-left: 1rem;
   border: solid black 1px;
   margin: 1rem auto;
+
+  @media (min-width: ${breakpoints[2]}px) {
+    /* width: 20rem; */
+    grid-row: 2 / 3;
+    grid-column: 1 / 2;
+  }
+
+  .name {
+    font-size: 1.2rem;
+    margin: 0;
+    margin: 1rem 0;
+  }
+
+  .desc {
+    font-style: italic;
+  }
+  .date {
+    font-size: 0.5rem;
+  }
+  .tasks {
+  }
+  .requirements {
+  }
+  .requirement {
+  }
 `;
 
 const TaskList = styled.div`
@@ -47,7 +89,6 @@ const TaskList = styled.div`
   /* Presentation */
   border: solid black 1px;
   margin: 1rem auto;
-  padding-left: auto 1rem;
 
   ul {
     list-style-type: none;
@@ -58,11 +99,35 @@ const TaskList = styled.div`
   li {
     border: solid red 1px;
   }
+
+  @media (min-width: ${breakpoints[2]}px) {
+    /* width: 20rem; */
+    height: 25rem;
+    overflow: scroll;
+
+    grid-row: 2 / 3;
+    grid-column: 2 / 3;
+    justify-content: normal;
+
+    ul {
+      overflow: scroll;
+      margin: 0;
+    }
+  }
+
+  h4 {
+    margin: 0;
+    padding: 1rem 0;
+    box-shadow: 1px 5px 9px -1px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 1px 5px 9px -1px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 1px 5px 9px -1px rgba(0, 0, 0, 0.75);
+  }
 `;
 
 export interface IDashboardProps {}
 
 type projectDetailed = {
+  id: string;
   name: string;
   description: string;
   dateCreated: Date;
@@ -75,6 +140,7 @@ type projectDetailed = {
 };
 
 type projectSimple = {
+  id: string;
   name: string;
   description: string;
   openTasks: number;
@@ -82,9 +148,11 @@ type projectSimple = {
 };
 
 type task = {
+  id: string;
   name: string;
   description: string;
-  toComplete: Date;
+  dueDate: Date;
+  status: string;
 };
 
 /**
@@ -95,19 +163,61 @@ type task = {
  * @returns
  */
 export default function Dashboard(props: IDashboardProps) {
-  const [mainProject, setMainProject] = React.useState<projectDetailed | {}>(
-    {},
+  const [mainProject, setMainProject] = React.useState<projectDetailed | null>(
+    null,
   );
-  const [projectList, setProjectList] = React.useState<projectSimple | {}>({});
-  const [taskList, setTaskList] = React.useState<task | {}>({});
+
+  const [projectList, setProjectList] = React.useState<projectSimple | null>(
+    null,
+  );
+  const [taskList, setTaskList] = React.useState<task[]>();
 
   let navigate = useNavigate();
+
+  React.useEffect(() => {
+    getTasks();
+    getMainProject();
+    getBasicUserData();
+  }, []);
 
   /**
    * Fetches a list of the current tasks that are active and assigned to the user
    *
    */
-  function getTasks() {}
+  function getTasks() {
+    const tasks: task[] = [
+      {
+        id: '1',
+        name: 'Create page',
+        description: 'Create the first page',
+        dueDate: new Date(),
+        status: 'To Do',
+      },
+      {
+        id: '2',
+        name: 'Scaffold Project',
+        description: 'Create project files',
+        dueDate: new Date(),
+        status: 'In progress',
+      },
+      {
+        id: '3',
+        name: 'Make first commit',
+        description: 'Initialize repository',
+        dueDate: new Date(),
+        status: 'Done',
+      },
+      {
+        id: '4',
+        name: 'Assemble the avengers',
+        description: 'Call team to action',
+        dueDate: new Date(),
+        status: 'To Do',
+      },
+    ];
+
+    setTaskList(tasks);
+  }
 
   /**
    * Fetches a list of the current projects that the user is a memeber of
@@ -118,7 +228,22 @@ export default function Dashboard(props: IDashboardProps) {
   /**
    * Fetches the project that the user is a member of which is flagged as main
    */
-  function getMainProject() {}
+  function getMainProject() {
+    const projectInfo: projectDetailed = {
+      id: '1',
+      name: 'Swallow',
+      description: 'A bug tracking application',
+      dateCreated: new Date(),
+      dateToComplete: new Date(),
+      openTasks: 12,
+      tasksAssigned: 5,
+      requirementsMet: 4,
+      reqOutstanding: 5,
+      currentRequirement: 'Develop frontend',
+    };
+
+    setMainProject(projectInfo);
+  }
 
   /**
    * Fetches simple user data
@@ -130,28 +255,41 @@ export default function Dashboard(props: IDashboardProps) {
     <DashCont className="dashboard-container">
       <h4>Dashboard</h4>
       <MainProject className="main-project">
-        <h4>Name</h4>
-        <p className="desc">Description</p>
-        <p className="date">date created</p>
-        <p className="tasks">Open tasks</p>
-        <p className="requirements">Requirements met</p>
-        <p className="curr-requirement">Current requirement</p>
+        {mainProject ? (
+          <>
+            <h5 className="name">{mainProject.name}</h5>
+            <p className="desc">{mainProject.description}</p>
+            <p className="date">{mainProject.dateCreated.toDateString()}</p>
+            <p className="tasks">{mainProject.openTasks}</p>
+            <p className="requirements">{mainProject.requirementsMet}</p>
+            <p className="curr-requirement">{mainProject.currentRequirement}</p>
+            <button
+              onClick={() =>
+                navigate(`${frontendUrls.project}/${mainProject.id}`)
+              }
+            >
+              Go to Project page
+            </button>
+          </>
+        ) : (
+          <p>Loading</p>
+        )}
       </MainProject>{' '}
       <TaskList className="task-list">
         <h4>Tasks</h4>
         <ul>
-          <li>
-            <h5>Task 1</h5>
-            <p>Description</p> <p>Status</p>
-          </li>
-          <li>
-            <h5>Task 1</h5>
-            <p>Description</p> <p>Status</p>
-          </li>
-          <li>
-            <h5>Task 1</h5>
-            <p>Description</p> <p>Status</p>
-          </li>
+          {taskList?.map((task) => (
+            <li key={task.id}>
+              <p>{task.name}</p>
+              <p>{task.description}</p>
+              <p>{task.status}</p>
+              <button
+                onClick={() => navigate(`${frontendUrls.task}/${task.id}`)}
+              >
+                Open Task
+              </button>
+            </li>
+          ))}
         </ul>
       </TaskList>{' '}
       {/* On click should list out a list of other projects, which lead to their project pages  */}
