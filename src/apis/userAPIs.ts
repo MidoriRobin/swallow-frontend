@@ -3,11 +3,11 @@ import {
   LogoutError,
   SignupError,
   ValidationError,
-} from './errors';
+} from '../utils/errors';
 
 /**
  * TODO: Replace with actual api call
- * @param param0 An object containing username and password
+ * @param loginInfo An object containing username and password
  * @returns An object containing the username and a jwt token from the post request response.
  */
 function callLoginAPI({

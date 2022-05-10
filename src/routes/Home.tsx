@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Card from '../components/card/Card';
 import Slider from '../components/slider/';
+import useAuth from '../hooks/useAuth';
 import { breakpoints } from '../utils/helper';
 
 const HomeWrap = styled.div`
@@ -14,7 +16,7 @@ const HomeWrap = styled.div`
 
   /* Presentation */
 
-  @media (min-width: ${breakpoints[2]}px) {
+  @media (min-width: ${breakpoints.lrg}px) {
     width: 80%;
   }
 `;
@@ -27,7 +29,7 @@ const CaroWrap = styled.div`
   /* Presentation */
   /* border: solid black 2px; */
 
-  @media (min-width: ${breakpoints[2]}px) {
+  @media (min-width: ${breakpoints.lrg}px) {
     height: 30rem;
   }
 `;
@@ -59,7 +61,7 @@ const InfoWrap = styled.div`
     margin: 3rem 0;
   }
 
-  @media (min-width: ${breakpoints[2]}px) {
+  @media (min-width: ${breakpoints.lrg}px) {
     width: 100%;
 
     ul {
@@ -75,7 +77,7 @@ const InfoWrap = styled.div`
     }
   }
 
-  @media (max-width: ${breakpoints[2]}px) {
+  @media (max-width: ${breakpoints.lrg}px) {
     li:last-child {
       margin: 0 auto;
     }
@@ -91,6 +93,17 @@ const Image = styled.div<{ background?: string }>`
 `;
 
 function Home(): JSX.Element {
+  let auth = useAuth();
+  let navigate = useNavigate();
+
+  React.useEffect(() => {
+    // When logged in route to dashboard instead
+
+    if (auth.user.loggedIn) {
+      navigate('/dashboard', { replace: true });
+    }
+  }, []);
+
   const sliderItems = [
     {
       id: 'thing1',

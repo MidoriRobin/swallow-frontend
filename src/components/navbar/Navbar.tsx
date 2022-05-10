@@ -28,9 +28,11 @@ const NavWrap = styled.div`
   padding: 0 1rem;
   z-index: 1;
 
+  flex: 0 1 auto;
+
   background-color: var(--primary-color-light-200);
 
-  @media (min-width: ${breakpoints[2]}px) {
+  @media (min-width: ${breakpoints.lrg}px) {
     padding: 0 2rem;
   }
 `;
@@ -81,7 +83,7 @@ const NavMain = styled(a.nav)`
     }
   }
 
-  @media (min-width: ${breakpoints[2]}px) {
+  @media (min-width: ${breakpoints.lrg}px) {
     position: static;
     height: auto;
     width: fit-content;
@@ -103,7 +105,7 @@ const NavButtons = styled.div`
   display: flex;
   flex-direction: column;
 
-  @media (min-width: ${breakpoints[2]}px) {
+  @media (min-width: ${breakpoints.lrg}px) {
     flex-direction: row;
   }
 `;
@@ -120,7 +122,7 @@ const MenuBtn = styled.button`
   font-size: 16px; /* Set a font size */
   cursor: pointer;
 
-  @media (min-width: ${breakpoints[2]}px) {
+  @media (min-width: ${breakpoints.lrg}px) {
     display: none;
     background-color: black;
   }
@@ -143,7 +145,7 @@ function Navbar({
 }) {
   // TODO: set to true when isDesktop
   const [dropdown, setDropdown] = useState(false);
-  const isDesktop = useMediaQuery(`(min-width: ${breakpoints[2]}px)`);
+  const isDesktop = useMediaQuery(`(min-width: ${breakpoints.lrg}px)`);
   const auth = useAuth();
 
   let navigate = useNavigate();
