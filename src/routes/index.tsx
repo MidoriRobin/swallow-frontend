@@ -22,7 +22,7 @@ const AppCont = styled.div`
 
   /* Presentation */
 
-  @media (min-width: ${breakpoints[2]}px) {
+  @media (min-width: ${breakpoints.lrg}px) {
     padding: 0 5rem;
   }
 `;

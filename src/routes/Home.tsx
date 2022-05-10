@@ -16,7 +16,7 @@ const HomeWrap = styled.div`
 
   /* Presentation */
 
-  @media (min-width: ${breakpoints[2]}px) {
+  @media (min-width: ${breakpoints.lrg}px) {
     width: 80%;
   }
 `;
@@ -29,7 +29,7 @@ const CaroWrap = styled.div`
   /* Presentation */
   /* border: solid black 2px; */
 
-  @media (min-width: ${breakpoints[2]}px) {
+  @media (min-width: ${breakpoints.lrg}px) {
     height: 30rem;
   }
 `;
@@ -61,7 +61,7 @@ const InfoWrap = styled.div`
     margin: 3rem 0;
   }
 
-  @media (min-width: ${breakpoints[2]}px) {
+  @media (min-width: ${breakpoints.lrg}px) {
     width: 100%;
 
     ul {
@@ -77,7 +77,7 @@ const InfoWrap = styled.div`
     }
   }
 
-  @media (max-width: ${breakpoints[2]}px) {
+  @media (max-width: ${breakpoints.lrg}px) {
     li:last-child {
       margin: 0 auto;
     }

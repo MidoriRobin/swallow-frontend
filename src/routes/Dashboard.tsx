@@ -24,7 +24,7 @@ const DashCont = styled.div`
     justify-content: center;
   }
 
-  @media (min-width: ${breakpoints[2]}px) {
+  @media (min-width: ${breakpoints.lrg}px) {
     display: grid;
     padding: 0;
     grid-template-columns: 1fr 1fr;
@@ -38,6 +38,10 @@ const DashCont = styled.div`
       grid-column: 1 / 2;
     }
   }
+
+  p > span {
+    font-weight: 700;
+  }
 `;
 
 const MainProject = styled.div`
@@ -49,11 +53,11 @@ const MainProject = styled.div`
   justify-content: flex-start;
 
   /* Presentation */
-  padding-left: 1rem;
+  padding: 0 1rem;
   border: solid black 1px;
   margin: 1rem auto;
 
-  @media (min-width: ${breakpoints[2]}px) {
+  @media (min-width: ${breakpoints.lrg}px) {
     /* width: 20rem; */
     grid-row: 2 / 3;
     grid-column: 1 / 2;
@@ -69,7 +73,7 @@ const MainProject = styled.div`
     font-style: italic;
   }
   .date {
-    font-size: 0.5rem;
+    font-size: 0.8rem;
   }
   .tasks {
   }
@@ -100,7 +104,7 @@ const TaskList = styled.div`
     border: solid red 1px;
   }
 
-  @media (min-width: ${breakpoints[2]}px) {
+  @media (min-width: ${breakpoints.lrg}px) {
     /* width: 20rem; */
     height: 25rem;
     overflow: scroll;
@@ -257,13 +261,26 @@ export default function Dashboard(props: IDashboardProps) {
       <MainProject className="main-project">
         {mainProject ? (
           <>
-            <h5 className="name">{mainProject.name}</h5>
-            <p className="desc">{mainProject.description}</p>
-            <p className="date">{mainProject.dateCreated.toDateString()}</p>
-            <p className="tasks">{mainProject.openTasks}</p>
-            <p className="requirements">{mainProject.requirementsMet}</p>
-            <p className="curr-requirement">{mainProject.currentRequirement}</p>
+            <h5 className="name">
+              <span>Name:</span> {mainProject.name}
+            </h5>
+            <p className="desc">
+              <span>Description:</span> {mainProject.description}
+            </p>
+            <p className="date">
+              <span>Start Date:</span> {mainProject.dateCreated.toDateString()}
+            </p>
+            <p className="tasks">
+              <span>Open Tasks:</span> {mainProject.openTasks}
+            </p>
+            <p className="requirements">
+              <span>Requirements Met:</span> {mainProject.requirementsMet}
+            </p>
+            <p className="curr-requirement">
+              <span>Current Requirement:</span> {mainProject.currentRequirement}
+            </p>
             <button
+              type="button"
               onClick={() =>
                 navigate(`${frontendUrls.project}/${mainProject.id}`)
               }
@@ -280,9 +297,18 @@ export default function Dashboard(props: IDashboardProps) {
         <ul>
           {taskList?.map((task) => (
             <li key={task.id}>
-              <p>{task.name}</p>
-              <p>{task.description}</p>
-              <p>{task.status}</p>
+              <p>
+                <span>Name: </span>
+                {task.name}
+              </p>
+              <p>
+                <span>Description: </span>
+                {task.description}
+              </p>
+              <p>
+                <span>Status: </span>
+                {task.status}
+              </p>
               <button
                 onClick={() => navigate(`${frontendUrls.task}/${task.id}`)}
               >

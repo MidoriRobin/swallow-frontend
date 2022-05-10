@@ -43,7 +43,7 @@ const NavMain = styled(a.nav)`
     }
   }
 
-  @media (min-width: ${breakpoints[2]}px) {
+  @media (min-width: ${breakpoints.lrg}px) {
     position: static;
     height: auto;
     justify-content: flex-end;
@@ -64,7 +64,7 @@ const NavBtns = styled.div`
   display: flex;
   flex-direction: column;
 
-  @media (min-width: ${breakpoints[2]}px) {
+  @media (min-width: ${breakpoints.lrg}px) {
     flex-direction: row;
   }
 `;
@@ -73,7 +73,7 @@ export interface INavButtonsProps {}
 
 export function NavButtons(props: INavButtonsProps) {
   const [dropdown, setDropdown] = useState(false);
-  const isDesktop = useMediaQuery(`(min-width: ${breakpoints[2]}px)`);
+  const isDesktop = useMediaQuery(`(min-width: ${breakpoints.lrg}px)`);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const dropdownProps = useSpring({

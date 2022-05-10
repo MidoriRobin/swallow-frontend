@@ -20,7 +20,7 @@ const CaroselArea = styled.div`
   color: white;
   height: inherit;
 
-  @media (min-width: ${breakpoints[2]}px) {
+  @media (min-width: ${breakpoints.lrg}px) {
     height: 28rem;
   }
 `;
@@ -51,7 +51,7 @@ export default function Slider({
   const { carouselFragment, slideToPrevItem, slideToNextItem } =
     useSpringCarousel({ items });
 
-  const isDesktop = useMediaQuery(`(min-width: ${breakpoints[2]}px)`);
+  const isDesktop = useMediaQuery(`(min-width: ${breakpoints.lrg}px)`);
 
   //TODO: Create a function that starts automatically scrolling after no interaction from the user
   function autoScroll(): void {
