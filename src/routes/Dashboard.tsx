@@ -282,7 +282,7 @@ export default function Dashboard(props: IDashboardProps) {
             <button
               type="button"
               onClick={() =>
-                navigate(`${frontendUrls.project}/${mainProject.id}`)
+                navigate(`${frontendUrls.projects}/${mainProject.id}`)
               }
             >
               Go to Project page

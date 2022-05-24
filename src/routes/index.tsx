@@ -59,9 +59,8 @@ function MainRouter() {
               <Projects />
             </AuthHandler>
           }
-        >
-          <Route path=":id" element={<Project />} />
-        </Route>
+        />
+        <Route path={`${frontendUrls.projects}/:id`} element={<Project />} />
         <Route
           path={frontendUrls.tasks}
           element={
