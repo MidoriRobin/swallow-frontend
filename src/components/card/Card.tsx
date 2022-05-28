@@ -8,6 +8,7 @@ type Card = {
   custHeight?: string;
   custWidth?: string;
   image?: string | undefined;
+  padding?: string;
 };
 
 const CardWrap = styled.div<Card>`
@@ -15,14 +16,15 @@ const CardWrap = styled.div<Card>`
   display: flex;
   /* TODO: change this to accept props */
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  /* ? These affect overflow scroll */
+  /* align-items: center;
+  justify-content: center; */
   height: ${({ custHeight }) => (custHeight ? custHeight : '30rem')};
   width: ${({ custWidth }) => (custWidth ? custWidth : '20rem')};
   max-height: ${({ isDesktop }) => (isDesktop ? '50rem' : '40rem')};
   max-width: ${({ isDesktop }) => (isDesktop ? '60rem' : '40rem')};
-  /* padding-left: 1rem;
-  padding-right: 1rem; */
+  padding-left: 1rem;
+  padding-right: 1rem;
 
   /* Presentation */
   background-color: white;
@@ -38,9 +40,16 @@ interface ICardProps {
   children?: React.ReactNode;
   width?: string;
   height?: string;
+  padding?: string;
 }
 
-export default function Card({ image, children, width, height }: ICardProps) {
+export default function Card({
+  image,
+  children,
+  width,
+  height,
+  padding,
+}: ICardProps) {
   const isDesktop = useMediaQuery('(min-width: 1024px)');
 
   return (
@@ -49,6 +58,7 @@ export default function Card({ image, children, width, height }: ICardProps) {
       image={image === 'none' ? 'none' : image}
       custHeight={height}
       custWidth={width}
+      padding={padding}
     >
       {children}
     </CardWrap>
