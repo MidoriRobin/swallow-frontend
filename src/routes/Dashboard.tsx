@@ -130,6 +130,7 @@ const TaskList = styled.div`
 
 export interface IDashboardProps {}
 
+// TODO: Switch to import in project api file filter with imports
 type projectDetailed = {
   id: string;
   name: string;
@@ -282,7 +283,7 @@ export default function Dashboard(props: IDashboardProps) {
             <button
               type="button"
               onClick={() =>
-                navigate(`${frontendUrls.project}/${mainProject.id}`)
+                navigate(`${frontendUrls.projects}/${mainProject.id}`)
               }
             >
               Go to Project page

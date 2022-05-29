@@ -12,6 +12,10 @@ export interface IAuthHandlerProps {
  * @returns
  */
 export default function AuthHandler({ children }: IAuthHandlerProps) {
+  let devAuthDisable = process.env.REACT_APP_DISABLE_AUTH;
+
+  console.log(devAuthDisable);
+
   let auth = useAuth();
   let location = useLocation();
 
@@ -19,9 +23,10 @@ export default function AuthHandler({ children }: IAuthHandlerProps) {
 
   //TODO: make into an extension for the route component so it can be substituted for protected routes
 
-  return !auth.user.loggedIn ? (
-    <Navigate to={'/login'} state={{ from: location }} replace />
-  ) : (
+  return auth.user.loggedIn || devAuthDisable ? (
     children
+  ) : (
+    // TODO: swap with a redirect component instead
+    <Navigate to={'/login'} state={{ from: location }} replace />
   );
 }

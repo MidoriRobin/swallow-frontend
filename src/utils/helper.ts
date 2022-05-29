@@ -5,4 +5,15 @@ enum breakpoints {
   xlrg = 1440,
 }
 
-export { breakpoints };
+function reduceString(text: string): string {
+  let textArray = text.split(' ');
+
+  if (textArray.length > 10) {
+    textArray.push('...');
+    return textArray.slice(0, 10).join(' ');
+  }
+
+  return textArray.join(' ');
+}
+
+export { breakpoints, reduceString };
