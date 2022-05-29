@@ -5,7 +5,7 @@ import Card from '../components/card/Card';
 import { TaskList } from '../components/tasklist';
 import useMediaQuery from '../hooks/useMediaQuery';
 import { breakpoints } from '../utils/helper';
-import { project, projectData1, task, taskList } from '../utils/testData';
+import { project, projectData1, task, taskListTest } from '../utils/testData';
 
 const ProjectCont = styled.div`
   /* TODO: Similar to dashboard container extract? */
@@ -146,7 +146,7 @@ export default function Project() {
 
   function getTaskInfo(id: string) {
     // should lazy load tasks based on scroll, only open tasks!
-    setTasks(taskList);
+    setTasks(taskListTest);
   }
 
   console.log('Media query in swallow:', isDesktop);

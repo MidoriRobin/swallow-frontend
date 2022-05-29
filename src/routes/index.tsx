@@ -52,15 +52,17 @@ function MainRouter() {
             </AuthHandler>
           }
         />
-        <Route
-          path={frontendUrls.projects}
-          element={
-            <AuthHandler>
-              <Projects />
-            </AuthHandler>
-          }
-        />
-        <Route path={`${frontendUrls.projects}/:id`} element={<Project />} />
+        <Route path={frontendUrls.projects}>
+          <Route
+            index
+            element={
+              <AuthHandler>
+                <Projects />
+              </AuthHandler>
+            }
+          />
+          <Route path={`:id`} element={<Project />} />
+        </Route>
         <Route
           path={frontendUrls.tasks}
           element={
