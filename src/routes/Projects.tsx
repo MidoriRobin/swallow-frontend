@@ -1,14 +1,27 @@
 import styled from '@emotion/styled';
 import * as React from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
+import { breakpoints, reduceString } from '../utils/helper';
 import { projectList } from '../utils/testData';
 import { frontendUrls } from '../utils/urls';
 
 const ProjectsCont = styled.div`
   margin: 0 auto;
+  background-color: white;
 
   h3 {
     text-align: center;
+  }
+
+  hr {
+    width: 10rem;
+  }
+
+  @media (min-width: ${breakpoints.lrg}px) {
+    hr {
+      width: 20rem;
+    }
+    padding: 2rem;
   }
 `;
 
@@ -24,12 +37,15 @@ const ProjectList = styled.ul`
 
   li {
     /* layout */
+    /* width: 15rem;
+    height: 15rem;
     margin: 1rem 0;
-    padding: 1rem 2rem;
+    padding: 1rem 2rem; */
 
     /* presentation */
-    border: solid 1px black;
+    /* border: solid 1px black;
     border-radius: 10px;
+    overflow: hidden; */
   }
 
   li:hover {
@@ -37,6 +53,13 @@ const ProjectList = styled.ul`
     box-shadow: 4px 3px 5px 0px rgba(0, 0, 0, 0.75);
     -webkit-box-shadow: 4px 3px 5px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 4px 3px 5px 0px rgba(0, 0, 0, 0.75);
+  }
+
+  @media (min-width: ${breakpoints.lrg}px) {
+    li {
+      /* width: 30rem;
+      height: 10rem; */
+    }
   }
 `;
 
@@ -58,7 +81,7 @@ export default function Projects(props: IProjectsProps) {
   }
 
   return (
-    <ProjectsCont>
+    <ProjectsCont className="project-container">
       <h3> Projects </h3>
       <hr></hr>
 
@@ -69,12 +92,13 @@ export default function Projects(props: IProjectsProps) {
               navigate(`${frontendUrls.projects}/${projectItem.id}`)
             }
           >
+            {/* TODO: figure out why these list items are causing horizontal overflow */}
             <img
               src="https://img.icons8.com/material-outlined/48/000000/software-box.png"
               alt="project-icon"
             />
             <h5 className="name">{projectItem.name}</h5>
-            <p className="desc">{projectItem.description}</p>
+            <p className="desc">{reduceString(projectItem.description)}</p>
           </li>
         ))}
       </ProjectList>

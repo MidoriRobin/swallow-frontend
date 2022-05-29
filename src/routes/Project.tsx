@@ -3,6 +3,7 @@ import * as React from 'react';
 import { useParams } from 'react-router-dom';
 import Card from '../components/card/Card';
 import { TaskList } from '../components/tasklist';
+import useMediaQuery from '../hooks/useMediaQuery';
 import { breakpoints } from '../utils/helper';
 import { project, projectData1, task, taskList } from '../utils/testData';
 
@@ -120,6 +121,7 @@ export default function Project() {
   const [projectId, setProjectId] = React.useState<string>();
   const [project, setProject] = React.useState<project>();
   const [tasks, setTasks] = React.useState<task[]>();
+  const isDesktop = useMediaQuery(`(min-width: ${breakpoints.lrg}px)`);
 
   let { id } = useParams();
 
@@ -147,6 +149,8 @@ export default function Project() {
     setTasks(taskList);
   }
 
+  console.log('Media query in swallow:', isDesktop);
+
   return (
     <ProjectCont className="project-container">
       <ProjectHead className="project-head">
@@ -156,7 +160,7 @@ export default function Project() {
       </ProjectHead>
       <ProjectInfo className="project-info">
         <section className="main-info">
-          <Card height="20rem">
+          <Card width={isDesktop ? '40rem' : ''} height="20rem">
             <div className="description">
               {project?.description === ''
                 ? 'No description provided'
@@ -189,6 +193,7 @@ export default function Project() {
         <section className="tasks-info">
           <Card height={tasks ? '25rem' : '10rem'}>
             {/* <div className="tasks"> */}
+            {/* TODO: adjust scroll bar styling and card width */}
             {tasks ? <TaskList tasks={tasks} /> : <p>No tasks</p>}
             {/* </div> */}
           </Card>
