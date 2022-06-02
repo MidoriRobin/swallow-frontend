@@ -7,19 +7,68 @@ import { task, taskListTest } from '../utils/testData';
 
 const TasksCont = styled.div`
   /* Layout */
+  width: 20rem;
+  display: flex;
+  flex-direction: column;
 
   /* Presentation */
+
+  /* Larger Screens */
+
+  @media (min-width: ${breakpoints.lrg}px) {
+    width: -webkit-fill-available;
+  }
 `;
 
 const ListArea = styled.section`
   /* Layout */
 
+  hr {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
   /* Presentation */
 
+  section.task-status-area {
+    /* height: 30rem; */
+  }
+
+  ul {
+    padding: 0;
+    min-height: 40rem;
+    /* height: -webkit-fill-available; */
+    border: solid black 1px;
+    border-radius: 4px;
+    box-shadow: 18px 22px 41px -6px rgba(0, 0, 0, 0.18) inset;
+    -webkit-box-shadow: 18px 22px 41px -6px rgba(0, 0, 0, 0.18) inset;
+    -moz-box-shadow: 18px 22px 41px -6px rgba(0, 0, 0, 0.18) inset;
+    list-style: none;
+  }
+
+  li {
+    height: 10rem;
+    margin: 0.5rem;
+    padding: 0.5rem;
+
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 3px;
+  }
+
+  /* Larger Screens */
+
   @media (min-width: ${breakpoints.lrg}px) {
+    width: -webkit-fill-available;
+
     section.task-status-area {
       display: flex;
       flex-direction: row;
+      justify-content: space-between;
+    }
+
+    ul {
+      width: 15rem;
     }
   }
 `;
@@ -163,14 +212,12 @@ function Tasks(): JSX.Element {
     return taskElements;
   }
 
-  console.log(isDesktop);
-
   return (
-    <TasksCont>
+    <TasksCont className="tasks-cont">
       <h4>Tasks</h4>
-      <hr></hr>
+      <hr style={{ marginLeft: 0, marginRight: 0 }} />
 
-      <ListArea>
+      <ListArea className="task-list-area">
         <div className="task-dropdown">
           <select
             disabled={isDesktop}
