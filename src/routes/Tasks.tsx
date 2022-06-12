@@ -1,9 +1,11 @@
 import styled from '@emotion/styled';
 import * as React from 'react';
-import { useParams } from 'react-router-dom';
+import { Outlet, useNavigate, useParams } from 'react-router-dom';
+import { task } from '../apis/projectAPIs';
 import useMediaQuery from '../hooks/useMediaQuery';
 import { breakpoints } from '../utils/helper';
-import { task, taskListTest } from '../utils/testData';
+import { taskListTest } from '../utils/testData';
+import { frontendUrls } from '../utils/urls';
 
 const TasksCont = styled.div`
   /* Layout */
@@ -56,6 +58,13 @@ const ListArea = styled.section`
     border-radius: 3px;
   }
 
+  li:hover {
+    cursor: pointer;
+    box-shadow: 4px 3px 5px 0px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 4px 3px 5px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 4px 3px 5px 0px rgba(0, 0, 0, 0.75);
+  }
+
   /* Larger Screens */
 
   @media (min-width: ${breakpoints.lrg}px) {
@@ -73,6 +82,8 @@ const ListArea = styled.section`
   }
 `;
 
+const ListItem = styled.li``;
+
 enum taskEnum {
   TODO = 'to-do',
   INPR = 'in-progress',
@@ -89,6 +100,8 @@ function Tasks(): JSX.Element {
 
   let isDesktop = useMediaQuery(`(min-width: ${breakpoints.lrg}px)`);
 
+  let navigate = useNavigate();
+
   React.useEffect(() => {
     if (projId) {
       getTasks(projId);
@@ -97,6 +110,11 @@ function Tasks(): JSX.Element {
     // TODO: REMOVE
     setTaskList(taskListTest);
   }, []);
+
+  function navigateToTask(id: string) {
+    console.log('Navigating to task', id);
+    navigate(`${frontendUrls.tasks}/${id}`);
+  }
 
   /**
    * Handles the change of status for the tasks (smaller breakpoints)
@@ -154,7 +172,9 @@ function Tasks(): JSX.Element {
       taskElement = (
         <ul>
           {taskList?.map((taskItem, index) => (
-            <li key={taskItem.id}>{taskItem.name}</li>
+            <li onClick={() => navigateToTask(taskItem.id)} key={taskItem.id}>
+              {taskItem.name}
+            </li>
           ))}
         </ul>
       );
@@ -167,7 +187,12 @@ function Tasks(): JSX.Element {
     taskElement = (
       <ul className={taskStatus}>
         {filteredTasks.map((filteredTask, index) => (
-          <li key={filteredTask.id}>{filteredTask.name}</li>
+          <li
+            onClick={() => navigateToTask(filteredTask.id)}
+            key={filteredTask.id}
+          >
+            {filteredTask.name}
+          </li>
         ))}
       </ul>
     );
@@ -221,7 +246,12 @@ function Tasks(): JSX.Element {
               {taskByStatus
                 .find((taskStatus) => taskStatus.status === status)
                 ?.task.map((taskItem) => (
-                  <li key={taskItem.id}>{taskItem.name}</li>
+                  <li
+                    onClick={() => navigateToTask(taskItem.id)}
+                    key={taskItem.id}
+                  >
+                    {taskItem.name}
+                  </li>
                 ))}
             </ul>
           );
@@ -257,6 +287,7 @@ function Tasks(): JSX.Element {
           {!isDesktop ? showTaskList(taskStatus) : showAllTasks()}
         </section>
       </ListArea>
+      {/* <Outlet /> */}
     </TasksCont>
   );
 }
