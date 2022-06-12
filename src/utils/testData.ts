@@ -1,3 +1,5 @@
+import { task } from '../apis/projectAPIs';
+
 // TODO: extract functionality to relevant api calls, use interfaces to filter the necessary information
 export type project = {
   id: string;
@@ -10,26 +12,6 @@ export type project = {
   expectedEndDate: Date;
   MemberList: string[];
   groupName: string;
-};
-
-export type task = {
-  id: string;
-  name: string;
-  type: string;
-  description: string;
-  //TODO: swap out for user name
-  creatorId: string;
-  //TODO: swap out for user name
-  assignedId: string;
-  //TODO: might not need this
-  projectId: string;
-  weight: number;
-  createdDate: Date;
-  dueDate: Date;
-  completedDate: Date;
-  timeTaken: number;
-  sprint: number;
-  status: string;
 };
 
 export const projectData1: project = {

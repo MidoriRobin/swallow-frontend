@@ -13,8 +13,8 @@ interface IProject {
   GroupId: string;
 }
 
-type task = {
-  id?: string;
+export type task = {
+  id: string;
   name: string;
   type: string;
   description: string;
@@ -26,10 +26,11 @@ type task = {
   projectId: string;
   weight: number;
   createdDate: Date;
-  expectedFinishDate: Date;
+  dueDate: Date;
   completedDate: Date;
-  timeTaken: Date;
+  timeTaken: number;
   sprint: number;
+  status: string;
 };
 
 function callProjectAPI() {}
