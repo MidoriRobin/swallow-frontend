@@ -98,6 +98,10 @@ function Tasks(): JSX.Element {
     setTaskList(taskListTest);
   }, []);
 
+  /**
+   * Handles the change of status for the tasks (smaller breakpoints)
+   * @param e React.FormEvent<>
+   */
   function handleStatusChange(e: React.FormEvent<HTMLSelectElement>) {
     e.preventDefault();
 
@@ -106,6 +110,10 @@ function Tasks(): JSX.Element {
     setTaskStatus(status);
   }
 
+  /**
+   * Fetches a list of tasks
+   * @param projectId Project id for tasks to be fetched
+   */
   function getTasks(projectId: string) {
     // TODO: fetch based on project id
     if (true) {
@@ -113,6 +121,11 @@ function Tasks(): JSX.Element {
     }
   }
 
+  /**
+   * Sets the current viewable list of tasks (smaller break points)
+   * @param taskStatus One of the tasks from the enum
+   * @returns
+   */
   function filterTasks(taskStatus: taskEnum): task[] {
     let filteredTasks: task[] = [];
 
@@ -126,6 +139,11 @@ function Tasks(): JSX.Element {
   }
 
   // TODO: Simplify
+  /**
+   * Renders task list based on enum value entered in
+   * @param taskStatus
+   * @returns
+   */
   function showTaskList(taskStatus: taskEnum): React.ReactElement {
     let taskElement: React.ReactElement;
 
@@ -140,8 +158,6 @@ function Tasks(): JSX.Element {
           ))}
         </ul>
       );
-
-      showAllTasks();
 
       return taskElement;
     }
@@ -160,6 +176,10 @@ function Tasks(): JSX.Element {
   }
 
   // TODO: Simpliify
+  /**
+   * Show all tasks in an unordered list
+   * @returns React element
+   */
   function showAllTasks(): React.ReactElement {
     let statusList: string[] = [];
     let taskElements: React.ReactElement;
