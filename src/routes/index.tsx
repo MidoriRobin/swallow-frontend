@@ -25,6 +25,10 @@ const AppCont = styled.div`
   @media (min-width: ${breakpoints.lrg}px) {
     padding: 0 5rem;
   }
+
+  @media (min-width: ${breakpoints.xlrg}px) {
+    padding: 0 10rem;
+  }
 `;
 
 // interface IMainRouterProps {}
@@ -61,16 +65,20 @@ function MainRouter() {
               </AuthHandler>
             }
           />
-          <Route path={`:id`} element={<Project />} />
         </Route>
         <Route
-          path={frontendUrls.tasks}
-          element={
-            <AuthHandler>
-              <Tasks />
-            </AuthHandler>
-          }
-        >
+          path={`${frontendUrls.projects}/:projId`}
+          element={<Project />}
+        />
+        <Route path={frontendUrls.tasks}>
+          <Route
+            index
+            element={
+              <AuthHandler>
+                <Tasks />
+              </AuthHandler>
+            }
+          />
           <Route path=":id" element={<Task />} />
         </Route>
       </Routes>
