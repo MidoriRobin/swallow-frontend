@@ -3,14 +3,14 @@
 
 import React, { useState } from 'react';
 
-const useForm = (initialState = {}, callback?: (formData: {}) => void) => {
-  const [formData, setFormData] = useState(initialState);
+const useForm = (initialState = {}, callback?: ({}) => void) => {
+  const [formDataOut, setFormData] = useState(initialState);
 
-  console.log('Form data: ', formData);
+  console.log('Form data: ', formDataOut);
 
   const handleInputChange = (e: React.FormEvent<HTMLInputElement>) => {
     setFormData({
-      ...formData,
+      ...formDataOut,
       [e.currentTarget.name]: e.currentTarget.value,
     });
   };
@@ -18,10 +18,10 @@ const useForm = (initialState = {}, callback?: (formData: {}) => void) => {
   const handleSubmitCallback = (e: React.SyntheticEvent) => {
     e.preventDefault();
 
-    callback?.(formData);
+    callback?.(formDataOut);
   };
 
-  return { formData, handleInputChange, handleSubmitCallback };
+  return { formDataOut, handleInputChange, handleSubmitCallback };
 };
 
 export default useForm;

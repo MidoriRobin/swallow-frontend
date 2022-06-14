@@ -51,9 +51,9 @@ function SimpleForm({
   className,
 }: IFormProps): JSX.Element {
   // const [formData, setFormData] = useState<any>({});
-  const { formData, handleInputChange, handleSubmitCallback } = useForm(
+  const { formDataOut, handleInputChange, handleSubmitCallback } = useForm(
     formKeyToObj(fieldItems),
-    submitAction(),
+    () => submitAction(),
   );
 
   // React.useEffect(() => {
@@ -85,26 +85,9 @@ function SimpleForm({
     );
   }
 
-  function handleSubmit(e: React.SyntheticEvent) {
-    e.preventDefault();
-    submitAction(formData);
-  }
-
-  function handleChange(e: React.FormEvent<HTMLInputElement>) {
-    let newFormData = { ...formData };
-
-    //? accessing variables by key (based on answer 2): https://stackoverflow.com/questions/41993515/access-object-key-using-variable-in-typescript
-    const keyTyped = e.currentTarget.name as keyof typeof newFormData;
-    // newFormData[keyTyped] = e.currentTarget.value;
-
-    // setFormData({ ...newFormData });
-  }
-
-  console.log('Form data: ', formData);
-
   return (
     <form action="" onSubmit={handleSubmitCallback} className={className}>
-      {Object.entries(formData).map((field) => {
+      {Object.entries(formDataOut).map((field) => {
         const fieldKey = field[0];
         const fieldValue = field[1] as string;
         const fieldInfo = fieldItems?.find(
