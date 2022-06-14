@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
 import * as React from 'react';
 import { useState } from 'react';
+import useForm from '../../hooks/useForm';
+// TODO: Import useForm hook
 
 const FormCont = styled.div`
   /* Layout */
@@ -29,6 +31,7 @@ export type Field = {
   type: 'checkbox' | 'date' | 'email' | 'password' | 'number' | 'text';
   // specific styling to be applied to field
   style: {};
+  key: string;
   required?: boolean;
   max?: number;
   min?: number;
@@ -47,50 +50,75 @@ function SimpleForm({
   formStyle,
   className,
 }: IFormProps): JSX.Element {
-  const [formData, setFormData] = useState<any>({});
+  // const [formData, setFormData] = useState<any>({});
+  const { formData, handleInputChange, handleSubmitCallback } = useForm(
+    formKeyToObj(fieldItems),
+    submitAction(),
+  );
+
+  // React.useEffect(() => {
+  //   let formDataOne: any = {};
+
+  //   fieldItems?.forEach((fieldItem) => {
+  //     const field = fieldItem.name.toLowerCase().replace(' ', '');
+  //     formDataOne[field] = '';
+  //   });
+
+  //   // setFormData(formDataOne);
+  // }, [fieldItems]);
 
   React.useEffect(() => {
-    let formDataOne: any = {};
+    console.log('Form data:');
+  }, []);
 
-    fieldItems?.forEach((fieldItem) => {
-      const field = fieldItem.name.toLowerCase().replace(' ', '');
-      formDataOne[field] = '';
-    });
+  function formKeyToObj(fieldItemList: Field[] | undefined) {
+    if (!fieldItemList) {
+      console.error('Field items not passed in');
+      return {};
+    }
 
-    setFormData(formDataOne);
-  }, [fieldItems]);
+    let listItems = fieldItemList.map((fieldItem) => fieldItem.key);
+
+    return listItems.reduce(
+      (prevVal, curVal) => ({ ...prevVal, [curVal]: '' }),
+      {},
+    );
+  }
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
-    console.log('Submit form data');
-    console.log("Form's Data", formData);
     submitAction(formData);
   }
 
   function handleChange(e: React.FormEvent<HTMLInputElement>) {
-    console.log('form data changed');
-
     let newFormData = { ...formData };
 
     //? accessing variables by key (based on answer 2): https://stackoverflow.com/questions/41993515/access-object-key-using-variable-in-typescript
     const keyTyped = e.currentTarget.name as keyof typeof newFormData;
-    newFormData[keyTyped] = e.currentTarget.value;
+    // newFormData[keyTyped] = e.currentTarget.value;
 
-    setFormData({ ...newFormData });
+    // setFormData({ ...newFormData });
   }
 
+  console.log('Form data: ', formData);
+
   return (
-    <form action="" onSubmit={handleSubmit} className={className}>
-      {fieldItems?.map((fieldItem, index) => {
+    <form action="" onSubmit={handleSubmitCallback} className={className}>
+      {Object.entries(formData).map((field) => {
+        const fieldKey = field[0];
+        const fieldValue = field[1] as string;
+        const fieldInfo = fieldItems?.find(
+          (fieldItem) => fieldItem.key === field[0],
+        );
         return (
-          <label key={index}>
-            {fieldItem.name}:
+          <label key={fieldKey}>
+            {fieldInfo?.name}:
             <InputArea
-              type={fieldItem.type}
-              name={fieldItem.name.toLowerCase()}
-              value={formData[`${fieldItem.name}`]}
-              onChange={handleChange}
-              required={fieldItem.required}
+              type={fieldInfo?.type}
+              name={fieldKey}
+              value={fieldValue}
+              onChange={handleInputChange}
+              required={fieldInfo?.required}
             />
           </label>
         );
