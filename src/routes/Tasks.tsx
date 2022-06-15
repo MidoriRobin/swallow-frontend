@@ -32,6 +32,13 @@ const ListArea = styled.section`
 
   /* Presentation */
 
+  div.task-dropdown {
+    height: 3rem;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+
   section.task-status-area {
     /* height: 30rem; */
   }
@@ -69,6 +76,13 @@ const ListArea = styled.section`
 
   @media (min-width: ${breakpoints.lrg}px) {
     width: -webkit-fill-available;
+
+    div.task-dropdown {
+      button {
+        width: fit-content;
+        padding: 0.6rem;
+      }
+    }
 
     section.task-status-area {
       display: flex;
@@ -114,6 +128,11 @@ function Tasks(): JSX.Element {
   function navigateToTask(id: string) {
     console.log('Navigating to task', id);
     navigate(`${frontendUrls.tasks}/${id}`);
+  }
+
+  function navigateToTaskForm() {
+    console.log('Navigating to task form');
+    navigate(`${frontendUrls.tasks}/new`);
   }
 
   /**
@@ -264,17 +283,19 @@ function Tasks(): JSX.Element {
 
   return (
     <TasksCont className="tasks-cont">
-      <h4>Tasks</h4>
+      <h2>Tasks</h2>
       <hr style={{ marginLeft: 0, marginRight: 0 }} />
 
       <ListArea className="task-list-area">
         <div className="task-dropdown">
+          {/* <label htmlFor="task-state">State:</label> */}
           <select
             disabled={isDesktop}
             name="Task State"
             id="task-state"
             onChange={handleStatusChange}
             defaultValue={isDesktop ? 'all' : 'to-do'}
+            style={isDesktop ? { display: 'none' } : {}}
           >
             {/* TODO: spread enum across options for consistency */}
             <option value="to-do">Todo</option>
@@ -282,6 +303,9 @@ function Tasks(): JSX.Element {
             <option value="done">Done</option>
           </select>
           {/* TODO: change task enum to task status  */}
+          <button onClick={() => navigateToTaskForm()} type="button">
+            Create New
+          </button>
         </div>
         <section className="task-status-area">
           {!isDesktop ? showTaskList(taskStatus) : showAllTasks()}

@@ -12,6 +12,7 @@ import Project from './Project';
 import Projects from './Projects';
 import Signup from './Signup';
 import Task from './Task';
+import { TaskForm } from './TaskForm';
 import Tasks from './Tasks';
 
 const AppCont = styled.div`
@@ -56,6 +57,7 @@ function MainRouter() {
             </AuthHandler>
           }
         />
+        {/* Project Route */}
         <Route path={frontendUrls.projects}>
           <Route
             index
@@ -70,6 +72,7 @@ function MainRouter() {
           path={`${frontendUrls.projects}/:projId`}
           element={<Project />}
         />
+        {/* Tasks Route */}
         <Route path={frontendUrls.tasks}>
           <Route
             index
@@ -80,6 +83,7 @@ function MainRouter() {
             }
           />
           <Route path=":id" element={<Task />} />
+          <Route path="new" element={<TaskForm />} />
         </Route>
       </Routes>
     </AppCont>

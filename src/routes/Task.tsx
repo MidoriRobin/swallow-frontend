@@ -61,6 +61,8 @@ export default function Task(props: ITaskProps) {
       <section className="more-info">
         <p>Completed on: {task?.completedDate.toDateString()}</p>
         <p>Status: {task?.status}</p>
+        <p>Assigned To: {task?.assignedId}</p>
+        <p>Created By: {task?.creatorId}</p>
         <div className="desc-area">
           <div>Description:</div>
           <p>{task?.description}</p>
