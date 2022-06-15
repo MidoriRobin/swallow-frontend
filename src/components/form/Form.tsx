@@ -24,11 +24,20 @@ interface IFormProps {
   className: string;
 }
 
+// TODO: Adjust type for drop down options
 export type Field = {
   // Name of the field and its corresponding name in data form
   name: string;
   size: 'sml' | 'med' | 'lrg';
-  type: 'checkbox' | 'date' | 'email' | 'password' | 'number' | 'text';
+  type:
+    | 'checkbox'
+    | 'date'
+    | 'email'
+    | 'password'
+    | 'number'
+    | 'text'
+    | 'textarea'
+    | 'dropdown';
   // specific styling to be applied to field
   style: {};
   key: string;

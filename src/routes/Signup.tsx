@@ -16,17 +16,17 @@ const SignupCont = styled.div`
 `;
 
 // TODO: Repeated styling pull up into a wrapper component for simple form
-const FormArea = styled.div`
+export const FormArea = styled.div`
   display: flex;
   flex-direction: column;
-  height: 17rem;
+  /* height: 17rem; */
   min-height: wrap-content;
   justify-content: space-around;
 
   /* Presentation */
 
   /* Inner classes */
-  .signup-form {
+  .form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -175,7 +175,7 @@ function Signup(): JSX.Element {
           <SimpleForm
             submitAction={submitSignup}
             fieldItems={signupFormFields}
-            className="signup-form"
+            className="form"
           />
         </FormArea>
       </Card>
