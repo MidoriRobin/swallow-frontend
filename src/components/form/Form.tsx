@@ -59,22 +59,10 @@ function SimpleForm({
   formStyle,
   className,
 }: IFormProps): JSX.Element {
-  // const [formData, setFormData] = useState<any>({});
   const { formDataOut, handleInputChange, handleSubmitCallback } = useForm(
     formKeyToObj(fieldItems),
-    () => submitAction(),
+    submitAction,
   );
-
-  // React.useEffect(() => {
-  //   let formDataOne: any = {};
-
-  //   fieldItems?.forEach((fieldItem) => {
-  //     const field = fieldItem.name.toLowerCase().replace(' ', '');
-  //     formDataOne[field] = '';
-  //   });
-
-  //   // setFormData(formDataOne);
-  // }, [fieldItems]);
 
   React.useEffect(() => {
     console.log('Form data:');
@@ -105,13 +93,24 @@ function SimpleForm({
         return (
           <label key={fieldKey}>
             {fieldInfo?.name}:
-            <InputArea
-              type={fieldInfo?.type}
-              name={fieldKey}
-              value={fieldValue}
-              onChange={handleInputChange}
-              required={fieldInfo?.required}
-            />
+            {fieldInfo?.type !== 'textarea' ? (
+              <InputArea
+                type={fieldInfo?.type}
+                name={fieldKey}
+                value={fieldValue}
+                onChange={handleInputChange}
+                required={fieldInfo?.required}
+              />
+            ) : (
+              <textarea
+                name={fieldKey}
+                cols={30}
+                rows={10}
+                required={fieldInfo?.required}
+              >
+                {fieldValue}
+              </textarea>
+            )}
           </label>
         );
       })}

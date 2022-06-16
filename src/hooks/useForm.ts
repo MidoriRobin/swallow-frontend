@@ -3,7 +3,7 @@
 
 import React, { useState } from 'react';
 
-const useForm = (initialState = {}, callback?: ({}) => void) => {
+const useForm = (initialState = {}, callback: Function) => {
   const [formDataOut, setFormData] = useState(initialState);
 
   console.log('Form data: ', formDataOut);
