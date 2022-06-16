@@ -54,7 +54,7 @@ export function TaskForm() {
       type: 'textarea',
       style: {},
       required: true,
-      key: 'taskname',
+      key: 'description',
     },
     {
       name: 'Assign To',
@@ -90,7 +90,10 @@ export function TaskForm() {
     },
   ];
 
-  function submitNewTask(taskData: taskData) {}
+  function submitNewTask(taskData: taskData) {
+    console.log('task form data: ', taskData);
+    //TODO: api call to submit task
+  }
 
   return (
     <TaskFormCont>
