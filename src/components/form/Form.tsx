@@ -37,7 +37,8 @@ export type Field = {
     | 'number'
     | 'text'
     | 'textarea'
-    | 'dropdown';
+    | 'dropdown'
+    | 'select';
   // specific styling to be applied to field
   style: {};
   key: string;
@@ -47,6 +48,7 @@ export type Field = {
   pattern?: string;
   // Any important info to be communicated for the field
   tooltip?: string;
+  selectOptions?: string[];
 };
 
 // TODO:Set form to accept an array with a list of objects indicating the number of fields and how the fields should be structured (DONE)
@@ -64,12 +66,14 @@ function SimpleForm({
     submitAction,
   );
 
+  // TODO: Add validation so empty fields cant be omited, also add server responses
   function formKeyToObj(fieldItemList: Field[] | undefined) {
     if (!fieldItemList) {
       console.error('Field items not passed in');
       return {};
     }
 
+    // TODO: set default values for select fields?
     let listItems = fieldItemList.map((fieldItem) => fieldItem.key);
 
     return listItems.reduce(
@@ -78,37 +82,55 @@ function SimpleForm({
     );
   }
 
+  function renderFormFields() {
+    const formFields = Object.entries(formDataOut).map((field) => {
+      const fieldKey = field[0];
+      const fieldValue = field[1] as string;
+      const fieldInfo = fieldItems?.find(
+        (fieldItem) => fieldItem.key === field[0],
+      );
+      return (
+        <label key={fieldKey}>
+          {fieldInfo?.name}:
+          {fieldInfo?.type === 'textarea' ? (
+            <textarea
+              name={fieldKey}
+              cols={30}
+              rows={10}
+              required={fieldInfo?.required}
+              defaultValue={fieldValue}
+              onChange={(e) => handleInputChange(e)}
+            />
+          ) : fieldInfo?.type === 'dropdown' ? (
+            <select
+              name={fieldKey}
+              required={fieldInfo?.required}
+              value={1}
+              onChange={(e) => handleInputChange(e)}
+            >
+              {fieldInfo?.selectOptions?.map((value, index) => (
+                <option value={value}>{value}</option>
+              ))}
+            </select>
+          ) : (
+            <InputArea
+              type={fieldInfo?.type}
+              name={fieldKey}
+              value={fieldValue}
+              onChange={handleInputChange}
+              required={fieldInfo?.required}
+            />
+          )}
+        </label>
+      );
+    });
+
+    return formFields;
+  }
+
   return (
     <form action="" onSubmit={handleSubmitCallback} className={className}>
-      {Object.entries(formDataOut).map((field) => {
-        const fieldKey = field[0];
-        const fieldValue = field[1] as string;
-        const fieldInfo = fieldItems?.find(
-          (fieldItem) => fieldItem.key === field[0],
-        );
-        return (
-          <label key={fieldKey}>
-            {fieldInfo?.name}:
-            {fieldInfo?.type !== 'textarea' ? (
-              <InputArea
-                type={fieldInfo?.type}
-                name={fieldKey}
-                value={fieldValue}
-                onChange={handleInputChange}
-                required={fieldInfo?.required}
-              />
-            ) : (
-              <textarea
-                name={fieldKey}
-                cols={30}
-                rows={10}
-                required={fieldInfo?.required}
-                defaultValue={fieldValue}
-              />
-            )}
-          </label>
-        );
-      })}
+      {renderFormFields()}
       <button type="submit">Submit</button>
     </form>
   );

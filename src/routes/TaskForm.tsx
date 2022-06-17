@@ -115,6 +115,7 @@ export function TaskForm() {
       style: {},
       required: true,
       key: 'assignedId',
+      selectOptions: ['User', 'User2', 'User3'],
     },
     {
       name: 'Project',
@@ -123,6 +124,7 @@ export function TaskForm() {
       style: {},
       required: true,
       key: 'projectId',
+      selectOptions: ['Project 1', 'Project 2'],
     },
     {
       name: 'Weight',
