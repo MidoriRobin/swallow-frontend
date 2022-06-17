@@ -64,10 +64,6 @@ function SimpleForm({
     submitAction,
   );
 
-  React.useEffect(() => {
-    console.log('Form data:');
-  }, []);
-
   function formKeyToObj(fieldItemList: Field[] | undefined) {
     if (!fieldItemList) {
       console.error('Field items not passed in');
@@ -107,9 +103,8 @@ function SimpleForm({
                 cols={30}
                 rows={10}
                 required={fieldInfo?.required}
-              >
-                {fieldValue}
-              </textarea>
+                defaultValue={fieldValue}
+              />
             )}
           </label>
         );

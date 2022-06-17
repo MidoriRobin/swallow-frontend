@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import * as React from 'react';
 import Card from '../components/card/Card';
 import SimpleForm, { Field } from '../components/form/Form';
-import { FormArea } from './Signup';
 
 export interface ITaskFormData {}
 
@@ -12,6 +11,59 @@ const TaskFormCont = styled.div`
   justify-content: center;
   align-items: center;
   /* Presentation */
+
+  /* Create base class for forms to be overwritten */
+
+  /* Inner classes */
+  .form {
+    input,
+    textarea {
+      margin: 0.5rem 0;
+    }
+
+    label {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+`;
+
+const FormArea = styled.div`
+  .form {
+    display: flex;
+    flex-direction: column;
+
+    input {
+      display: flex;
+      flex-direction: column;
+      border: none;
+      border-bottom: solid 1.5px black;
+      border-radius: 2px;
+      background-color: #dbdbdb83;
+    }
+
+    label {
+      margin: 1rem 0;
+    }
+
+    button {
+      width: 7rem;
+      height: 1.4rem;
+      background-color: white;
+      color: #4caf50;
+      border: none;
+      border: solid 1px #4caf50;
+      border-radius: 2px;
+      transition-duration: 0.4s;
+      align-self: center;
+    }
+
+    button:hover {
+      background-color: #4caf50;
+      color: black;
+      cursor: pointer;
+    }
+  }
 `;
 
 type taskData = {
@@ -97,7 +149,7 @@ export function TaskForm() {
 
   return (
     <TaskFormCont>
-      <Card height="50rem">
+      <Card height="max-content">
         <FormArea className="form-area">
           <h4>Task Form</h4>
           {error && <div>{error}</div>}

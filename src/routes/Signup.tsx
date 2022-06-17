@@ -167,7 +167,7 @@ function Signup(): JSX.Element {
   return (
     <SignupCont>
       {/* TODO: maybe i shouldnt use a card for the container for this form */}
-      <Card height="50rem">
+      <Card>
         <FormArea className="form-area">
           <h4>Signup</h4>
           {error && <div>{error}</div>}

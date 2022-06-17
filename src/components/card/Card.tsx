@@ -21,10 +21,12 @@ const CardWrap = styled.div<Card>`
   justify-content: center; */
   height: ${({ custHeight }) => (custHeight ? custHeight : '30rem')};
   width: ${({ custWidth }) => (custWidth ? custWidth : '20rem')};
-  max-height: ${({ isDesktop }) => (isDesktop ? '50rem' : '40rem')};
+  max-height: ${({ isDesktop }) => (isDesktop ? '50rem' : 'min-content')};
   max-width: ${({ isDesktop }) => (isDesktop ? '60rem' : '40rem')};
   padding-left: 1rem;
   padding-right: 1rem;
+  padding: 2rem;
+  margin: 2rem 0;
 
   /* Presentation */
   background-color: white;
