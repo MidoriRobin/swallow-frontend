@@ -147,6 +147,20 @@ export function TaskForm() {
   function submitNewTask(taskData: taskData) {
     console.log('task form data: ', taskData);
     //TODO: api call to submit task
+
+    let errorString = '';
+
+    let errorFields = taskFormFields.filter((field, index) => {
+      let key: keyof typeof taskData;
+
+      key = field.key as keyof typeof taskData;
+
+      if (taskData[key] === '' && field.required) {
+        return field;
+      }
+    });
+
+    setError(`${errorFields.join(',')} have invalid inputs`);
   }
 
   return (

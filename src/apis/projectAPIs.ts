@@ -13,26 +13,6 @@ interface IProject {
   GroupId: string;
 }
 
-export type task = {
-  id: string;
-  name: string;
-  type: string;
-  description: string;
-  //TODO: swap out for user name
-  creatorId: string;
-  //TODO: swap out for user name
-  assignedId: string;
-  //TODO: might not need this
-  projectId: string;
-  weight: number;
-  createdDate: Date;
-  dueDate: Date;
-  completedDate: Date;
-  timeTaken: number;
-  sprint: number;
-  status: string;
-};
-
 function callProjectAPI() {}
 
 function getProjectData(projectId: string): IProject {
