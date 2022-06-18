@@ -1,11 +1,12 @@
 import styled from '@emotion/styled';
 import * as React from 'react';
 import { useParams } from 'react-router-dom';
+import { task } from '../apis/projectAPIs';
 import Card from '../components/card/Card';
 import { TaskList } from '../components/tasklist';
 import useMediaQuery from '../hooks/useMediaQuery';
 import { breakpoints } from '../utils/helper';
-import { project, projectData1, task, taskList } from '../utils/testData';
+import { project, projectData1, taskListTest } from '../utils/testData';
 
 const ProjectCont = styled.div`
   /* TODO: Similar to dashboard container extract? */
@@ -123,10 +124,10 @@ export default function Project() {
   const [tasks, setTasks] = React.useState<task[]>();
   const isDesktop = useMediaQuery(`(min-width: ${breakpoints.lrg}px)`);
 
-  let { id } = useParams();
+  let { projId } = useParams();
 
   React.useEffect(() => {
-    setProjectId(id);
+    setProjectId(projId);
 
     if (projectId) {
       getProjectInfo(projectId);
@@ -146,7 +147,7 @@ export default function Project() {
 
   function getTaskInfo(id: string) {
     // should lazy load tasks based on scroll, only open tasks!
-    setTasks(taskList);
+    setTasks(taskListTest);
   }
 
   console.log('Media query in swallow:', isDesktop);

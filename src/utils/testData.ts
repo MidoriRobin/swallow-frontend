@@ -1,3 +1,5 @@
+import { task } from '../apis/projectAPIs';
+
 // TODO: extract functionality to relevant api calls, use interfaces to filter the necessary information
 export type project = {
   id: string;
@@ -10,26 +12,6 @@ export type project = {
   expectedEndDate: Date;
   MemberList: string[];
   groupName: string;
-};
-
-export type task = {
-  id: string;
-  name: string;
-  type: string;
-  description: string;
-  //TODO: swap out for user name
-  creatorId: string;
-  //TODO: swap out for user name
-  assignedId: string;
-  //TODO: might not need this
-  projectId: string;
-  weight: number;
-  createdDate: Date;
-  dueDate: Date;
-  completedDate: Date;
-  timeTaken: number;
-  sprint: number;
-  status: string;
 };
 
 export const projectData1: project = {
@@ -112,7 +94,7 @@ export const projectList: project[] = [
   projectData5,
 ];
 
-export const taskData1: task = {
+export const taskData1: Readonly<task> = {
   id: '1',
   name: 'Task 1',
   type: 'Task',
@@ -129,8 +111,8 @@ export const taskData1: task = {
   status: 'to-do',
 };
 
-const taskData2: task = {
-  id: '1',
+const taskData2: Readonly<task> = {
+  id: '2',
   name: 'Task 2',
   type: 'Task',
   description: 'Complete this task',
@@ -146,8 +128,8 @@ const taskData2: task = {
   status: 'to-do',
 };
 
-const taskData3: task = {
-  id: '1',
+const taskData3: Readonly<task> = {
+  id: '3',
   name: 'Task 3',
   type: 'Task',
   description: 'Complete this task',
@@ -163,6 +145,100 @@ const taskData3: task = {
   status: 'to-do',
 };
 
-export const taskList: task[] = [taskData1, taskData2, taskData3];
+const taskData4: Readonly<task> = {
+  id: '4',
+  name: 'Task 3 - in prog',
+  type: 'Task',
+  description: 'Complete this task',
+  creatorId: '1',
+  assignedId: '1',
+  projectId: '1',
+  weight: 1,
+  createdDate: new Date(),
+  dueDate: new Date(),
+  completedDate: new Date(),
+  timeTaken: 10,
+  sprint: 2,
+  status: 'in-progress',
+};
+
+const taskData5: Readonly<task> = {
+  id: '5',
+  name: 'Task 3 in prog',
+  type: 'Task',
+  description: 'Complete this task',
+  creatorId: '1',
+  assignedId: '1',
+  projectId: '1',
+  weight: 1,
+  createdDate: new Date(),
+  dueDate: new Date(),
+  completedDate: new Date(),
+  timeTaken: 10,
+  sprint: 2,
+  status: 'in-progress',
+};
+
+const taskData6: Readonly<task> = {
+  id: '6',
+  name: 'Task 6 done',
+  type: 'Task',
+  description: 'Complete this task',
+  creatorId: '1',
+  assignedId: '1',
+  projectId: '1',
+  weight: 1,
+  createdDate: new Date(),
+  dueDate: new Date(),
+  completedDate: new Date(),
+  timeTaken: 10,
+  sprint: 2,
+  status: 'done',
+};
+
+const taskData7: Readonly<task> = {
+  id: '7',
+  name: 'Task 7 done',
+  type: 'Task',
+  description: 'Complete this task',
+  creatorId: '1',
+  assignedId: '1',
+  projectId: '1',
+  weight: 1,
+  createdDate: new Date(),
+  dueDate: new Date(),
+  completedDate: new Date(),
+  timeTaken: 10,
+  sprint: 2,
+  status: 'done',
+};
+
+const taskData8: Readonly<task> = {
+  id: '8',
+  name: 'Task 8 done',
+  type: 'Task',
+  description: 'Complete this task',
+  creatorId: '1',
+  assignedId: '1',
+  projectId: '1',
+  weight: 1,
+  createdDate: new Date(),
+  dueDate: new Date(),
+  completedDate: new Date(),
+  timeTaken: 10,
+  sprint: 2,
+  status: 'done',
+};
+
+export const taskListTest: task[] = [
+  taskData1,
+  taskData2,
+  taskData3,
+  taskData4,
+  taskData5,
+  taskData6,
+  taskData7,
+  taskData8,
+];
 
 // TODO: add project and tasks test data for project component

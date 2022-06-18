@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
 import * as React from 'react';
 import { useState } from 'react';
+import useForm from '../../hooks/useForm';
+// TODO: Import useForm hook
 
 const FormCont = styled.div`
   /* Layout */
@@ -22,19 +24,31 @@ interface IFormProps {
   className: string;
 }
 
+// TODO: Adjust type for drop down options
 export type Field = {
   // Name of the field and its corresponding name in data form
   name: string;
   size: 'sml' | 'med' | 'lrg';
-  type: 'checkbox' | 'date' | 'email' | 'password' | 'number' | 'text';
+  type:
+    | 'checkbox'
+    | 'date'
+    | 'email'
+    | 'password'
+    | 'number'
+    | 'text'
+    | 'textarea'
+    | 'dropdown'
+    | 'select';
   // specific styling to be applied to field
   style: {};
+  key: string;
   required?: boolean;
   max?: number;
   min?: number;
   pattern?: string;
   // Any important info to be communicated for the field
   tooltip?: string;
+  selectOptions?: string[];
 };
 
 // TODO:Set form to accept an array with a list of objects indicating the number of fields and how the fields should be structured (DONE)
@@ -47,54 +61,76 @@ function SimpleForm({
   formStyle,
   className,
 }: IFormProps): JSX.Element {
-  const [formData, setFormData] = useState<any>({});
+  const { formDataOut, handleInputChange, handleSubmitCallback } = useForm(
+    formKeyToObj(fieldItems),
+    submitAction,
+  );
 
-  React.useEffect(() => {
-    let formDataOne: any = {};
+  // TODO: Add validation so empty fields cant be omited, also add server responses
+  function formKeyToObj(fieldItemList: Field[] | undefined) {
+    if (!fieldItemList) {
+      console.error('Field items not passed in');
+      return {};
+    }
 
-    fieldItems?.forEach((fieldItem) => {
-      const field = fieldItem.name.toLowerCase().replace(' ', '');
-      formDataOne[field] = '';
-    });
+    // TODO: set default values for select fields?
+    let listItems = fieldItemList.map((fieldItem) => fieldItem.key);
 
-    setFormData(formDataOne);
-  }, [fieldItems]);
-
-  function handleSubmit(e: React.SyntheticEvent) {
-    e.preventDefault();
-    console.log('Submit form data');
-    console.log("Form's Data", formData);
-    submitAction(formData);
+    return listItems.reduce(
+      (prevVal, curVal) => ({ ...prevVal, [curVal]: '' }),
+      {},
+    );
   }
 
-  function handleChange(e: React.FormEvent<HTMLInputElement>) {
-    console.log('form data changed');
+  function renderFormFields() {
+    const formFields = Object.entries(formDataOut).map((field) => {
+      const fieldKey = field[0];
+      const fieldValue = field[1] as string;
+      const fieldInfo = fieldItems?.find(
+        (fieldItem) => fieldItem.key === field[0],
+      );
+      return (
+        <label key={fieldKey}>
+          {fieldInfo?.name}:
+          {fieldInfo?.type === 'textarea' ? (
+            <textarea
+              name={fieldKey}
+              cols={30}
+              rows={10}
+              required={fieldInfo?.required}
+              defaultValue={fieldValue}
+              onChange={(e) => handleInputChange(e)}
+            />
+          ) : fieldInfo?.type === 'dropdown' ? (
+            <select
+              name={fieldKey}
+              required={fieldInfo?.required}
+              value={1}
+              onChange={(e) => handleInputChange(e)}
+            >
+              {fieldInfo?.selectOptions?.map((value, index) => (
+                <option value={value}>{value}</option>
+              ))}
+            </select>
+          ) : (
+            <InputArea
+              type={fieldInfo?.type}
+              name={fieldKey}
+              value={fieldValue}
+              onChange={handleInputChange}
+              required={fieldInfo?.required}
+            />
+          )}
+        </label>
+      );
+    });
 
-    let newFormData = { ...formData };
-
-    //? accessing variables by key (based on answer 2): https://stackoverflow.com/questions/41993515/access-object-key-using-variable-in-typescript
-    const keyTyped = e.currentTarget.name as keyof typeof newFormData;
-    newFormData[keyTyped] = e.currentTarget.value;
-
-    setFormData({ ...newFormData });
+    return formFields;
   }
 
   return (
-    <form action="" onSubmit={handleSubmit} className={className}>
-      {fieldItems?.map((fieldItem, index) => {
-        return (
-          <label key={index}>
-            {fieldItem.name}:
-            <InputArea
-              type={fieldItem.type}
-              name={fieldItem.name.toLowerCase()}
-              value={formData[`${fieldItem.name}`]}
-              onChange={handleChange}
-              required={fieldItem.required}
-            />
-          </label>
-        );
-      })}
+    <form action="" onSubmit={handleSubmitCallback} className={className}>
+      {renderFormFields()}
       <button type="submit">Submit</button>
     </form>
   );

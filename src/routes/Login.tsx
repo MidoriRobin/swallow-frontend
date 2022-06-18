@@ -91,19 +91,26 @@ function Login(): JSX.Element {
       size: 'med',
       type: 'text',
       style: {},
+      key: 'username',
     },
     {
       name: 'Password',
       size: 'med',
       type: 'text',
       style: {},
+      key: 'password',
     },
   ];
+
+  React.useEffect(() => {
+    console.log('Form data:');
+  }, []);
 
   let navigate = useNavigate();
   let auth = useAuth();
 
-  function submitLogin({
+  // TODO: Investigate why this works with an async function
+  async function submitLogin({
     username,
     password,
   }: {

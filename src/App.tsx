@@ -90,6 +90,7 @@ function App() {
     }
   }
 
+  // TODO: create a universal wrapper component
   let contextValue = { user, login, logout };
 
   return (

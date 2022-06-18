@@ -152,13 +152,13 @@ type projectSimple = {
   tasksAssigned: number;
 };
 
-type task = {
+interface task {
   id: string;
   name: string;
   description: string;
   dueDate: Date;
   status: string;
-};
+}
 
 /**
  * Introductory screen which presents the user with their current focused project, and a list of current tasks that are assigned to them.

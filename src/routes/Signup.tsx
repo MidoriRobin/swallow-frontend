@@ -16,17 +16,17 @@ const SignupCont = styled.div`
 `;
 
 // TODO: Repeated styling pull up into a wrapper component for simple form
-const FormArea = styled.div`
+export const FormArea = styled.div`
   display: flex;
   flex-direction: column;
-  height: 17rem;
+  /* height: 17rem; */
   min-height: wrap-content;
   justify-content: space-around;
 
   /* Presentation */
 
   /* Inner classes */
-  .signup-form {
+  .form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -89,16 +89,38 @@ function Signup(): JSX.Element {
       type: 'text',
       style: {},
       required: true,
+      key: 'firstname',
     },
-    { name: 'Last Name', size: 'med', type: 'text', style: {} },
-    { name: 'Email', size: 'med', type: 'email', style: {}, required: true },
-    { name: 'Username', size: 'med', type: 'text', style: {}, required: true },
+    {
+      name: 'Last Name',
+      size: 'med',
+      type: 'text',
+      style: {},
+      key: 'lastname',
+    },
+    {
+      name: 'Email',
+      size: 'med',
+      type: 'email',
+      style: {},
+      required: true,
+      key: 'email',
+    },
+    {
+      name: 'Username',
+      size: 'med',
+      type: 'text',
+      style: {},
+      required: true,
+      key: 'username',
+    },
     {
       name: 'Password',
       size: 'med',
       type: 'password',
       style: {},
       required: true,
+      key: 'password',
     },
   ];
 
@@ -145,7 +167,7 @@ function Signup(): JSX.Element {
   return (
     <SignupCont>
       {/* TODO: maybe i shouldnt use a card for the container for this form */}
-      <Card height="50rem">
+      <Card>
         <FormArea className="form-area">
           <h4>Signup</h4>
           {error && <div>{error}</div>}
@@ -153,7 +175,7 @@ function Signup(): JSX.Element {
           <SimpleForm
             submitAction={submitSignup}
             fieldItems={signupFormFields}
-            className="signup-form"
+            className="form"
           />
         </FormArea>
       </Card>

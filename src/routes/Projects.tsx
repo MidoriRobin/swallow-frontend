@@ -103,7 +103,7 @@ export default function Projects(props: IProjectsProps) {
         ))}
       </ProjectList>
 
-      <Outlet />
+      {/* <Outlet /> */}
     </ProjectsCont>
   );
 }

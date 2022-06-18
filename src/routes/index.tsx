@@ -12,6 +12,7 @@ import Project from './Project';
 import Projects from './Projects';
 import Signup from './Signup';
 import Task from './Task';
+import { TaskForm } from './TaskForm';
 import Tasks from './Tasks';
 
 const AppCont = styled.div`
@@ -24,6 +25,10 @@ const AppCont = styled.div`
 
   @media (min-width: ${breakpoints.lrg}px) {
     padding: 0 5rem;
+  }
+
+  @media (min-width: ${breakpoints.xlrg}px) {
+    padding: 0 10rem;
   }
 `;
 
@@ -52,24 +57,33 @@ function MainRouter() {
             </AuthHandler>
           }
         />
+        {/* Project Route */}
+        <Route path={frontendUrls.projects}>
+          <Route
+            index
+            element={
+              <AuthHandler>
+                <Projects />
+              </AuthHandler>
+            }
+          />
+        </Route>
         <Route
-          path={frontendUrls.projects}
-          element={
-            <AuthHandler>
-              <Projects />
-            </AuthHandler>
-          }
+          path={`${frontendUrls.projects}/:projId`}
+          element={<Project />}
         />
-        <Route path={`${frontendUrls.projects}/:id`} element={<Project />} />
-        <Route
-          path={frontendUrls.tasks}
-          element={
-            <AuthHandler>
-              <Tasks />
-            </AuthHandler>
-          }
-        >
+        {/* Tasks Route */}
+        <Route path={frontendUrls.tasks}>
+          <Route
+            index
+            element={
+              <AuthHandler>
+                <Tasks />
+              </AuthHandler>
+            }
+          />
           <Route path=":id" element={<Task />} />
+          <Route path="new" element={<TaskForm />} />
         </Route>
       </Routes>
     </AppCont>
