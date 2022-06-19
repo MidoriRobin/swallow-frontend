@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import * as React from 'react';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
-import { task } from '../apis/projectAPIs';
+import { task } from '../apis/taskAPIs';
 import useMediaQuery from '../hooks/useMediaQuery';
 import { breakpoints } from '../utils/helper';
 import { taskListTest } from '../utils/testData';

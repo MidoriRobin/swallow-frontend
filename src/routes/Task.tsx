@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import * as React from 'react';
 import { useParams } from 'react-router-dom';
-import { task } from '../apis/projectAPIs';
+import { task } from '../apis/taskAPIs';
 import { taskListTest } from '../utils/testData';
 
 const TaskCont = styled.div`

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import * as React from 'react';
 import { useParams } from 'react-router-dom';
-import { task } from '../apis/projectAPIs';
+import { task } from '../apis/taskAPIs';
 import Card from '../components/card/Card';
 import { TaskList } from '../components/tasklist';
 import useMediaQuery from '../hooks/useMediaQuery';

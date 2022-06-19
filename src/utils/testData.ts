@@ -1,4 +1,4 @@
-import { task } from '../apis/projectAPIs';
+import { task } from '../apis/taskAPIs';
 
 // TODO: extract functionality to relevant api calls, use interfaces to filter the necessary information
 export type project = {
