@@ -25,3 +25,13 @@ export class ValidationError extends Error {
     this.name = 'ValidationError';
   }
 }
+
+export class HTTPError extends Error {
+  code: number;
+
+  constructor(message: string, code: number) {
+    super(message);
+    this.name = 'HTTPError';
+    this.code = code;
+  }
+}

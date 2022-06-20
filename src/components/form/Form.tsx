@@ -48,7 +48,7 @@ export type Field = {
   pattern?: string;
   // Any important info to be communicated for the field
   tooltip?: string;
-  selectOptions?: string[];
+  selectOptions?: string[] | { key: string; value: string }[];
 };
 
 // TODO:Set form to accept an array with a list of objects indicating the number of fields and how the fields should be structured (DONE)
@@ -82,6 +82,17 @@ function SimpleForm({
     );
   }
 
+  function checkStringArray(array: any): boolean {
+    if (
+      Array.isArray(array) &&
+      array.every((element) => typeof element === 'string')
+    ) {
+      return true;
+    }
+
+    return false;
+  }
+
   function renderFormFields() {
     const formFields = Object.entries(formDataOut).map((field) => {
       const fieldKey = field[0];
@@ -108,9 +119,14 @@ function SimpleForm({
               value={1}
               onChange={(e) => handleInputChange(e)}
             >
-              {fieldInfo?.selectOptions?.map((value, index) => (
-                <option value={value}>{value}</option>
-              ))}
+              {fieldInfo?.selectOptions?.map((value, index) => {
+                if (typeof value === 'string') {
+                  console.log('is string');
+                  return <option value={value}>{value}</option>;
+                }
+
+                return <option value={value.value}>{value.key}</option>;
+              })}
             </select>
           ) : (
             <InputArea
