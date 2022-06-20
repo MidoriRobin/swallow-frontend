@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import * as React from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { breakpoints, reduceString } from '../utils/helper';
 import { projectList } from '../utils/testData';
 import { frontendUrls } from '../utils/urls';
@@ -8,6 +8,7 @@ import { frontendUrls } from '../utils/urls';
 const ProjectsCont = styled.div`
   margin: 0 auto;
   background-color: white;
+  padding: 0 2rem;
 
   h3 {
     text-align: center;
@@ -37,15 +38,12 @@ const ProjectList = styled.ul`
 
   li {
     /* layout */
-    /* width: 15rem;
-    height: 15rem;
-    margin: 1rem 0;
-    padding: 1rem 2rem; */
+    margin: 1.5rem 0;
 
     /* presentation */
-    /* border: solid 1px black;
-    border-radius: 10px;
-    overflow: hidden; */
+    border: solid 2px;
+    padding: 1rem;
+    border-radius: 4px;
   }
 
   li:hover {
@@ -84,6 +82,8 @@ export default function Projects(props: IProjectsProps) {
     <ProjectsCont className="project-container">
       <h3> Projects </h3>
       <hr></hr>
+
+      <Link to={'new'}>New Project</Link>
 
       <ProjectList className="project-list">
         {projectItems.map((projectItem) => (

@@ -9,6 +9,7 @@ import Home from './Home';
 import Login from './Login';
 import Profile from './Profile';
 import Project from './Project';
+import { ProjectForm } from './ProjectForm';
 import Projects from './Projects';
 import Signup from './Signup';
 import Task from './Task';
@@ -67,11 +68,9 @@ function MainRouter() {
               </AuthHandler>
             }
           />
+          <Route path={`:projId`} element={<Project />} />
+          <Route path={`new`} element={<ProjectForm />} />
         </Route>
-        <Route
-          path={`${frontendUrls.projects}/:projId`}
-          element={<Project />}
-        />
         {/* Tasks Route */}
         <Route path={frontendUrls.tasks}>
           <Route
