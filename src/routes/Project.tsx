@@ -156,7 +156,7 @@ export default function Project() {
     <ProjectCont className="project-container">
       <ProjectHead className="project-head">
         <img src="https://picsum.photos/200/200" />
-        <h4 className="project-name">Project Name</h4>
+        <h4 className="project-name">{project?.name}</h4>
         {/* TODO: add a small description that disappears with larger breakpoints */}
       </ProjectHead>
       <ProjectInfo className="project-info">

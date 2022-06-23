@@ -87,4 +87,6 @@ function callSignupAPI(signupData: {
   }
 }
 
+function getAllGroups(id: string) {}
+
 export { callLoginAPI, callLogoutAPI, callSignupAPI };
