@@ -1,3 +1,5 @@
+import { makeHTTPRequest } from '../utils/helper';
+
 export type task = {
   id: string;
   name: string;
@@ -18,10 +20,52 @@ export type task = {
   status: string;
 };
 
-function getProjectTasks(projectId: string) {}
+// TODO: should filtering be done on frontend or backend
 
-function getUserTasks(userId: string) {}
+type filterKeys = 'weight' | 'createdDate' | 'dueDate' | 'sprint' | 'status';
 
-function getTasksByType(projectId: string, sort: string) {}
+const url = `${process.env.REACT_APP_MIDDLWARE_URL}/tasks`;
+
+async function getUserTasks(userId: string): Promise<task[]> {
+  let taskList: task[];
+
+  try {
+    taskList = (await makeHTTPRequest(`${url}/${userId}`, 'get')) as task[];
+  } catch (error) {
+    console.log('Error occurred when trying to fetch user tasks');
+    throw error;
+  }
+
+  return taskList;
+}
+
+async function getProjectTasks(projectId: string) {
+  let taskList: task[];
+
+  try {
+    taskList = (await makeHTTPRequest(`${url}/${projectId}`, 'get')) as task[];
+  } catch (error) {
+    console.log('Error occurred when trying to fetch user tasks');
+    throw error;
+  }
+
+  return taskList;
+}
+
+async function getTasksByType(
+  projectId: string,
+  filter?: { key: filterKeys; value: string },
+) {
+  let taskList: task[];
+
+  try {
+    taskList = (await makeHTTPRequest(`${url}/${projectId}`, 'get')) as task[];
+  } catch (error) {
+    console.log('Error occurred when trying to fetch user tasks');
+    throw error;
+  }
+
+  return taskList;
+}
 
 function getTasksByStatus(projectId: string, status: string) {}

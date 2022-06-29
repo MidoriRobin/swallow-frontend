@@ -1,18 +1,19 @@
+import { project } from '../apis/projectAPIs';
 import { task } from '../apis/taskAPIs';
 
 // TODO: extract functionality to relevant api calls, use interfaces to filter the necessary information
-export type project = {
-  id: string;
-  name: string;
-  type: string;
-  description: string;
-  ownerName: string;
-  createdDate: Date;
-  requirements: string[];
-  expectedEndDate: Date;
-  MemberList: string[];
-  groupName: string;
-};
+// export type project = {
+//   id: string;
+//   name: string;
+//   type: string;
+//   description: string;
+//   ownerId: string;
+//   createdDate: Date;
+//   requirements: string[];
+//   expectedEndDate: Date;
+//   MemberList: string[];
+//   groupId: string;
+// };
 
 export const projectData1: project = {
   id: '1',
@@ -20,7 +21,7 @@ export const projectData1: project = {
   type: 'Software Development',
   description:
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-  ownerName: 'Christopher Robinson',
+  ownerId: 'Christopher Robinson',
   createdDate: new Date('November 26, 2021'),
   requirements: [
     'Complete frontend',
@@ -31,7 +32,7 @@ export const projectData1: project = {
   ],
   expectedEndDate: new Date('November 26, 2022'),
   MemberList: ['Jeff', 'Greg', 'Stevie'],
-  groupName: 'Sqwaad',
+  groupId: 'Sqwaad',
 };
 
 const projectData2: project = {
@@ -39,12 +40,12 @@ const projectData2: project = {
   name: 'My Second project',
   type: 'Software Development',
   description: 'Develop nice software',
-  ownerName: 'Christopher Robinson',
+  ownerId: 'Christopher Robinson',
   createdDate: new Date(),
   requirements: ['Requirement 1', 'Requirement 2', 'Requirement 3'],
   expectedEndDate: new Date(),
   MemberList: ['Jeff', 'Greg', 'Stevie'],
-  groupName: 'Sqwaad',
+  groupId: 'Sqwaad',
 };
 
 const projectData3: project = {
@@ -52,12 +53,12 @@ const projectData3: project = {
   name: 'My third project',
   type: 'Software Development',
   description: 'Develop nice software',
-  ownerName: 'Christopher Robinson',
+  ownerId: 'Christopher Robinson',
   createdDate: new Date(),
   requirements: ['Requirement 1', 'Requirement 2', 'Requirement 3'],
   expectedEndDate: new Date(),
   MemberList: ['Jeff', 'Greg', 'Stevie'],
-  groupName: 'Sqwaad',
+  groupId: 'Sqwaad',
 };
 
 const projectData4: project = {
@@ -65,12 +66,12 @@ const projectData4: project = {
   name: 'My Fourth project',
   type: 'Software Development',
   description: 'Develop nice 4 software',
-  ownerName: 'Christopher Robinson',
+  ownerId: 'Christopher Robinson',
   createdDate: new Date(),
   requirements: ['Requirement 1', 'Requirement 2', 'Requirement 3'],
   expectedEndDate: new Date(),
   MemberList: ['Jeff', 'Greg', 'Stevie'],
-  groupName: 'Sqwaad',
+  groupId: 'Sqwaad',
 };
 
 const projectData5: project = {
@@ -78,12 +79,12 @@ const projectData5: project = {
   name: 'My Fifth project',
   type: 'Software Development',
   description: 'Develop 5 software',
-  ownerName: 'Christopher Robinson',
+  ownerId: 'Christopher Robinson',
   createdDate: new Date(),
   requirements: ['Requirement 1', 'Requirement 2', 'Requirement 3'],
   expectedEndDate: new Date(),
   MemberList: ['Jeff', 'Greg', 'Stevie'],
-  groupName: 'Sqwaad',
+  groupId: 'Sqwaad',
 };
 
 export const projectList: project[] = [
